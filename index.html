@@ -26,7 +26,7 @@
     .cat-item { padding: 8px 20px; background: #f5f5f5; border-radius: 30px; cursor: pointer; transition: 0.3s; font-size: 14px; }
     .cat-item.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; }
+    .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; }
     .product:hover { transform: translateY(-5px); }
     .product img { width: 100%; height: 180px; object-fit: cover; }
     .product-info { padding: 15px; }
@@ -54,7 +54,6 @@
 </head>
 <body>
 <div class="container">
-  <!-- Profile Card -->
   <div class="card profile">
     <img src="https://placehold.co/100x100/667eea/white?text=R2" alt="R2 Management">
     <h1>R2 Management <span class="verified">✓</span></h1>
@@ -66,7 +65,6 @@
     </div>
   </div>
 
-  <!-- Marketplace Header -->
   <div class="card">
     <div class="header-flex">
       <h3>🛍️ R2 Digital Marketplace</h3>
@@ -86,17 +84,14 @@
     </div>
   </div>
 
-  <!-- Products Grid -->
   <div class="products" id="products"></div>
 
-  <!-- Footer -->
   <div class="footer">
     <p>© 2026 PT Raziq Rayyan Management · Official Partner Tiktok</p>
     <p style="margin-top: 5px;">🔒 Pembayaran Aman via Midtrans</p>
   </div>
 </div>
 
-<!-- Modal Checkout -->
 <div id="checkoutModal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -117,7 +112,6 @@
   </div>
 </div>
 
-<!-- Loading Overlay -->
 <div id="loadingOverlay" class="loading-overlay">
   <div class="loading-spinner">
     <i>⏳</i>
@@ -162,18 +156,21 @@ function hideLoading() {
   document.getElementById("loadingOverlay").style.display = "none";
 }
 
+// ==================== OPEN CHECKOUT ====================
 function openCheckout(productId) {
-  selectedProduct = products.find(p => p.id === productId);
-  if (selectedProduct) {
-    document.getElementById("modalProductName").innerText = selectedProduct.name;
-    document.getElementById("modalPrice").innerHTML = formatRupiah(selectedProduct.price);
+  const product = products.find(p => p.id === productId);
+  if (product) {
+    selectedProduct = product;
+    document.getElementById("modalProductName").innerText = product.name;
+    document.getElementById("modalPrice").innerHTML = formatRupiah(product.price);
     document.getElementById("checkoutModal").style.display = "flex";
+  } else {
+    alert("Produk tidak ditemukan!");
   }
 }
 
 function closeModal() {
   document.getElementById("checkoutModal").style.display = "none";
-  selectedProduct = null;
 }
 
 // ==================== RENDER PRODUCTS ====================
@@ -205,12 +202,14 @@ function renderProducts() {
 
 // ==================== PROSES PEMBAYARAN MIDTRANS ====================
 async function processPayment() {
+  console.log("processPayment dipanggil");
+  console.log("selectedProduct:", selectedProduct);
+  
   if (!selectedProduct) {
     alert("Pilih produk terlebih dahulu!");
     return;
   }
   
-  // Cek apakah Snap sudah siap
   if (typeof snap === "undefined") {
     alert("⚠️ Midtrans sedang dimuat. Silakan refresh halaman dan coba lagi.");
     return;
@@ -220,15 +219,16 @@ async function processPayment() {
   closeModal();
   
   const orderId = generateOrderId();
+  const amount = selectedProduct.price;
   
   const transactionData = {
     transaction_details: {
       order_id: orderId,
-      gross_amount: selectedProduct.price
+      gross_amount: amount
     },
     item_details: [{
       id: selectedProduct.id.toString(),
-      price: selectedProduct.price,
+      price: amount,
       quantity: 1,
       name: selectedProduct.name.substring(0, 50)
     }],
@@ -256,10 +256,10 @@ async function processPayment() {
     hideLoading();
     
     if (result.token) {
-      // Buka popup Midtrans Snap
+      console.log("Token diterima, membuka Snap...");
       snap.pay(result.token, {
         onSuccess: function(res) {
-          alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRupiah(selectedProduct.price) + "\n\nOrder ID: " + orderId);
+          alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRupiah(amount) + "\n\nOrder ID: " + orderId);
           window.open("https://wa.me/6282298466638?text=Halo%20Admin,%20saya%20sudah%20bayar%20" + selectedProduct.name, "_blank");
         },
         onPending: function(res) {
@@ -280,24 +280,33 @@ async function processPayment() {
   } catch (error) {
     hideLoading();
     console.error("Payment error:", error);
-    alert("❌ Terjadi kesalahan: " + error.message + "\n\nCek console (F12) untuk detail.");
+    alert("❌ Terjadi kesalahan: " + error.message);
   }
 }
 
 // ==================== EVENT LISTENERS ====================
 document.addEventListener("DOMContentLoaded", function() {
-  // Tombol bayar
-  document.getElementById("payNowBtn").addEventListener("click", processPayment);
+  console.log("DOM loaded, setting up event listeners");
   
-  // Tutup modal
-  document.querySelector(".close-modal").addEventListener("click", closeModal);
+  const payBtn = document.getElementById("payNowBtn");
+  if (payBtn) {
+    payBtn.addEventListener("click", processPayment);
+    console.log("Event listener attached to pay button");
+  } else {
+    console.error("Pay button not found!");
+  }
+  
+  const closeBtn = document.querySelector(".close-modal");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+  
   window.addEventListener("click", function(e) {
     if (e.target === document.getElementById("checkoutModal")) {
       closeModal();
     }
   });
   
-  // Kategori filter
   document.querySelectorAll(".cat-item").forEach(item => {
     item.addEventListener("click", function() {
       document.querySelectorAll(".cat-item").forEach(c => c.classList.remove("active"));
@@ -307,18 +316,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
-  // Search
   document.getElementById("searchInput").addEventListener("input", function(e) {
     currentSearch = e.target.value;
     renderProducts();
   });
   
-  // Render awal
   renderProducts();
 });
 
-// Expose function ke global
+// Expose function ke global scope
 window.openCheckout = openCheckout;
+window.processPayment = processPayment;
 </script>
 </body>
 </html>
