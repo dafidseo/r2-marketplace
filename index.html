@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>R2 Agency Store - Live Streaming Solutions</title>
+    <title>R2 Agency Store - Premium Live Streaming</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Midtrans Snap -->
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,330 +14,238 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+            color: #1a1a2e;
         }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        /* Warna baru dan fresh */
+        :root {
+            --primary: #5D3FD3;
+            --primary-dark: #4a2fc0;
+            --secondary: #FF6B6B;
+            --dark: #1a1a2e;
+            --glass: rgba(255,255,255,0.95);
         }
 
-        /* Navbar */
-        .navbar {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        /* Navbar Premium */
+        .navbar-premium {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #e2e8f0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(93, 63, 211, 0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        .navbar-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem 2rem;
-            max-width: 1400px;
+        .nav-container {
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .logo-area {
+        .logo-premium {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            border-radius: 12px;
+        .logo-icon-premium {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 8px 16px -4px rgba(93,63,211,0.3);
         }
 
-        .logo-icon i {
-            font-size: 1.3rem;
+        .logo-icon-premium i {
+            font-size: 1.4rem;
             color: white;
         }
 
-        .logo-text {
+        .logo-text-premium {
+            font-size: 1.3rem;
             font-weight: 800;
-            font-size: 1.1rem;
-            color: #0f172a;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .logo-text span {
-            color: #2563eb;
-        }
-
-        .nav-links {
+        /* Navigation Links */
+        .nav-links-premium {
             display: flex;
             gap: 0.5rem;
-            align-items: center;
         }
 
-        .nav-link {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
+        .nav-link-premium {
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            color: #475569;
+            color: #4a5568;
         }
 
-        .nav-link:hover {
-            background: #f1f5f9;
-            color: #2563eb;
+        .nav-link-premium:hover {
+            background: var(--primary);
+            color: white;
         }
 
-        .search-desktop {
+        .search-premium {
             display: flex;
             align-items: center;
             background: #f1f5f9;
             border-radius: 40px;
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1rem;
             gap: 8px;
-            width: 260px;
+            width: 280px;
         }
 
-        .search-desktop i {
-            color: #94a3b8;
-        }
-
-        .search-desktop input {
+        .search-premium input {
             border: none;
             background: none;
             outline: none;
             width: 100%;
-            font-size: 0.85rem;
         }
 
-        .hamburger {
+        .hamburger-premium {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
             background: none;
             border: none;
-            color: #1e293b;
         }
 
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100vh;
-            background: white;
-            box-shadow: -2px 0 20px rgba(0,0,0,0.1);
-            z-index: 200;
-            padding: 1.5rem;
-            transition: right 0.3s ease;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            margin-bottom: 1rem;
-        }
-
-        .mobile-close {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        .mobile-link {
-            display: block;
-            padding: 0.8rem 0;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 199;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Hero */
-        .hero-section {
+        /* Hero Baru */
+        .hero-premium {
             text-align: center;
-            padding: 2.5rem 0 1.5rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #ffffff, #f8f4ff);
+            margin: 1.5rem;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -12px rgba(93,63,211,0.15);
         }
 
-        .big-logo {
+        .badge-premium {
             display: inline-block;
-            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
             margin-bottom: 1rem;
         }
 
-        .big-logo-circle {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 15px 35px -8px rgba(37,99,235,0.3);
-        }
-
-        .big-logo-circle i {
-            font-size: 3rem;
-            color: white;
-        }
-
-        .check-badge-big {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #10b981;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid white;
-        }
-
-        .check-badge-big i {
-            font-size: 0.8rem;
-            color: white;
-        }
-
-        .hero-section h1 {
-            font-size: 2rem;
-            font-weight: 700;
+        .hero-premium h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
-        .hero-section p {
+        .hero-premium p {
             color: #64748b;
-            margin-bottom: 0.5rem;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        .official-badge {
-            display: inline-block;
-            background: #eef2ff;
-            padding: 0.3rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2563eb;
-        }
-
-        /* Action Menu */
-        .action-menu {
+        /* Menu Aksi Baru - Style Modern */
+        .action-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
             margin: 2rem 0;
-            padding: 1rem 0;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 0.5rem;
         }
 
-        .action-btn {
+        .action-card {
             background: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 600;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             border: 1px solid #e2e8f0;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            color: #1e293b;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
-        .action-btn i {
-            color: #2563eb;
+        .action-card i {
+            font-size: 1rem;
+            color: var(--primary);
         }
 
-        .action-btn:hover {
-            background: #2563eb;
+        .action-card:hover {
+            background: var(--primary);
             color: white;
-            border-color: #2563eb;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            border-color: var(--primary);
         }
 
-        .action-btn:hover i {
+        .action-card:hover i {
             color: white;
         }
 
-        /* Products */
-        .section-title {
-            font-size: 1.3rem;
+        /* Product Grid */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
         }
 
-        .products-grid {
+        .product-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-            margin-bottom: 2rem;
         }
 
-        .product-card {
+        .product-item {
             background: white;
-            border-radius: 20px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: 0.3s;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            cursor: pointer;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-            border-color: #2563eb;
+        .product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -12px rgba(93,63,211,0.2);
         }
 
-        .product-img {
+        .product-image {
             height: 180px;
-            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            background: linear-gradient(135deg, #e8eaff, #ddd6fe);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
         }
 
-        .product-info {
+        .product-details {
             padding: 1rem;
         }
 
         .product-title {
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 0.3rem;
         }
 
@@ -352,13 +258,13 @@
         .product-price {
             font-weight: 800;
             font-size: 1.2rem;
-            color: #2563eb;
+            color: var(--primary);
             margin-bottom: 0.8rem;
         }
 
-        .buy-btn {
+        .btn-purchase {
             width: 100%;
-            background: #0f172a;
+            background: var(--dark);
             color: white;
             border: none;
             padding: 0.6rem;
@@ -366,50 +272,38 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
-        .buy-btn:hover {
-            background: #2563eb;
+        .btn-purchase:hover {
+            background: var(--primary);
         }
 
-        .loadmore-container {
+        .load-more {
             text-align: center;
             margin: 2rem 0;
         }
 
-        .loadmore-btn {
+        .load-more-btn {
             background: white;
-            border: 2px solid #2563eb;
+            border: 2px solid var(--primary);
             padding: 0.8rem 2rem;
-            border-radius: 40px;
-            font-weight: 600;
+            border-radius: 50px;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
-            color: #2563eb;
+            color: var(--primary);
         }
 
-        .loadmore-btn:hover {
-            background: #2563eb;
+        .load-more-btn:hover {
+            background: var(--primary);
             color: white;
         }
 
-        .no-result {
-            text-align: center;
-            padding: 3rem;
-            color: #64748b;
-            grid-column: 1 / -1;
-        }
-
         /* Footer */
-        .footer {
-            background: #0f172a;
+        .footer-premium {
+            background: var(--dark);
             color: #cbd5e1;
             padding: 2rem;
-            border-radius: 24px 24px 0 0;
+            border-radius: 32px 32px 0 0;
             margin-top: 3rem;
         }
 
@@ -424,38 +318,31 @@
         .footer-col h4 {
             color: white;
             margin-bottom: 1rem;
-            font-size: 1rem;
         }
 
         .footer-col p {
             margin-bottom: 0.5rem;
-            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .social-icons {
+        .social-links {
             display: flex;
             gap: 0.8rem;
             margin-top: 1rem;
         }
 
-        .social-icons a {
+        .social-links a {
             background: rgba(255,255,255,0.1);
-            width: 32px;
-            height: 32px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            transition: 0.2s;
             text-decoration: none;
-        }
-
-        .social-icons a:hover {
-            background: #2563eb;
         }
 
         .copyright {
@@ -463,136 +350,159 @@
             padding-top: 2rem;
             margin-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem;
         }
 
-        .toast {
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            z-index: 1100;
+            padding: 1.5rem;
+            transition: right 0.3s;
+            box-shadow: -2px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1050;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .toast-msg {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #1e293b;
+            background: var(--dark);
             color: white;
             padding: 12px 20px;
             border-radius: 12px;
-            z-index: 300;
-            animation: slideIn 0.3s;
+            z-index: 1200;
+            animation: slide 0.3s;
         }
 
-        @keyframes slideIn {
+        @keyframes slide {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
 
         @media (max-width: 768px) {
-            .container { padding: 0 1rem; }
-            .navbar-content { padding: 0.8rem 1rem; }
-            .nav-links, .search-desktop { display: none; }
-            .hamburger { display: block; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-            .action-menu { gap: 0.6rem; }
-            .action-btn { padding: 0.5rem 1rem; font-size: 0.7rem; }
+            .nav-links-premium, .search-premium { display: none; }
+            .hamburger-premium { display: block; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .hero-premium h1 { font-size: 1.6rem; }
             .footer-grid { grid-template-columns: 1fr; text-align: center; }
             .footer-col p { justify-content: center; }
-            .social-icons { justify-content: center; }
-            .hero-section h1 { font-size: 1.5rem; }
-            .big-logo-circle { width: 80px; height: 80px; }
-            .big-logo-circle i { font-size: 2.2rem; }
+            .social-links { justify-content: center; }
+            .action-card { padding: 0.5rem 1rem; font-size: 0.7rem; }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-            .products-grid { grid-template-columns: repeat(3, 1fr); }
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="navbar-content">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-broadcast-tower"></i></div>
-            <div class="logo-text">R2 <span>Agency</span></div>
+<!-- NAVBAR PREMIUM -->
+<div class="navbar-premium">
+    <div class="nav-container">
+        <div class="logo-premium">
+            <div class="logo-icon-premium"><i class="fas fa-crown"></i></div>
+            <div class="logo-text-premium">R2 Agency</div>
         </div>
-        <div class="nav-links">
-            <div class="nav-link" id="navHome">Home</div>
-            <div class="nav-link" id="navProducts">Produk</div>
-            <div class="nav-link" id="navAbout">Tentang</div>
+        <div class="nav-links-premium">
+            <div class="nav-link-premium" id="navHome">Home</div>
+            <div class="nav-link-premium" id="navProducts">Produk</div>
+            <div class="nav-link-premium" id="navAbout">Tentang</div>
         </div>
-        <div class="search-desktop">
+        <div class="search-premium">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInputDesktop" placeholder="Cari produk...">
+            <input type="text" id="searchGlobal" placeholder="Cari produk...">
         </div>
-        <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+        <button class="hamburger-premium" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
     </div>
 </div>
 
-<!-- Mobile Menu -->
-<div class="overlay" id="overlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-header">
+<!-- Mobile Sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="mobile-sidebar" id="mobileSidebar">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
         <h4>Menu</h4>
-        <button class="mobile-close" id="closeMobile"><i class="fas fa-times"></i></button>
+        <button id="closeSidebar" style="background:none; border:none; font-size:1.3rem;">✕</button>
     </div>
-    <div class="mobile-link" id="mobileHome">🏠 Home</div>
-    <div class="mobile-link" id="mobileProducts">📦 Produk</div>
-    <div class="mobile-link" id="mobileAbout">ℹ️ Tentang</div>
+    <div class="mobile-link" id="mobileHome" style="padding: 12px 0; cursor:pointer;">🏠 Home</div>
+    <div class="mobile-link" id="mobileProducts" style="padding: 12px 0; cursor:pointer;">📦 Produk</div>
+    <div class="mobile-link" id="mobileAbout" style="padding: 12px 0; cursor:pointer;">ℹ️ Tentang</div>
     <div style="margin-top: 1rem;">
-        <div class="search-desktop" style="width: 100%;">
+        <div class="search-premium" style="width:100%;">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInputMobile" placeholder="Cari produk...">
+            <input type="text" id="searchMobile" placeholder="Cari produk...">
         </div>
     </div>
 </div>
 
-<div class="container">
-    <!-- HERO -->
-    <div class="hero-section">
-        <div class="big-logo">
-            <div class="big-logo-circle"><i class="fas fa-broadcast-tower"></i></div>
-            <div class="check-badge-big"><i class="fas fa-check"></i></div>
-        </div>
-        <h1>R2 Agency Store</h1>
-        <p>Solusi live streaming terpercaya untuk kreator & agency</p>
-        <div class="official-badge"><i class="fas fa-crown"></i> R2 Agency Official</div>
-    </div>
+<!-- HERO PREMIUM -->
+<div class="hero-premium">
+    <div class="badge-premium"><i class="fas fa-check-circle"></i> Verified Official</div>
+    <h1>R2 Agency Store</h1>
+    <p>Solusi live streaming terpercaya untuk kreator & agency</p>
+</div>
 
-    <!-- MENU 1-4 -->
-    <div class="action-menu">
-        <div class="action-btn" id="menuMimin"><i class="fas fa-user-tie"></i> 1. Mimin R2 Agency</div>
-        <div class="action-btn" id="menuStreamKey"><i class="fas fa-key"></i> 2. Request Fitur Stream Key</div>
-        <div class="action-btn" id="menuLiveStream"><i class="fas fa-video"></i> 3. Request Fitur Live Streaming</div>
-        <div class="action-btn" id="menuDaftar"><i class="fas fa-file-signature"></i> 4. Daftar Agency</div>
-    </div>
+<!-- ACTION MENU 1-4 -->
+<div class="action-grid">
+    <div class="action-card" id="actionMimin"><i class="fas fa-user-tie"></i> 1. Mimin R2 Agency</div>
+    <div class="action-card" id="actionStreamKey"><i class="fas fa-key"></i> 2. Request Stream Key</div>
+    <div class="action-card" id="actionLiveStream"><i class="fas fa-video"></i> 3. Request Live Streaming</div>
+    <div class="action-card" id="actionDaftar"><i class="fas fa-file-signature"></i> 4. Daftar Agency</div>
+</div>
 
-    <!-- PRODUCTS -->
-    <div class="section-title">🔥 Produk Unggulan</div>
-    <div class="products-grid" id="productsContainer"></div>
+<!-- PRODUCT SECTION -->
+<div class="section-header">
+    <h2>🔥 Produk Unggulan</h2>
+</div>
+<div class="product-grid" id="productGrid"></div>
 
-    <div class="loadmore-container">
-        <button class="loadmore-btn" id="loadMoreBtn"><i class="fas fa-chevron-down"></i> Load More</button>
-    </div>
+<div class="load-more">
+    <button class="load-more-btn" id="loadMoreBtn"><i class="fas fa-chevron-down"></i> Load More</button>
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
+<div class="footer-premium">
     <div class="footer-grid">
         <div class="footer-col">
-            <h4><i class="fas fa-store"></i> R2 Agency</h4>
+            <h4>R2 Agency</h4>
             <p>Solusi live streaming terpercaya</p>
-            <div class="social-icons">
+            <div class="social-links">
                 <a href="https://wa.me/6282298466638"><i class="fab fa-whatsapp"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
         <div class="footer-col">
-            <h4><i class="fas fa-phone-alt"></i> Kontak Resmi</h4>
+            <h4>Kontak Resmi</h4>
             <p><i class="fab fa-whatsapp"></i> +62 822-9846-6638</p>
             <p><i class="far fa-envelope"></i> support@r2agency.id</p>
             <p><i class="fas fa-clock"></i> 24/7 Support</p>
         </div>
         <div class="footer-col">
-            <h4><i class="fas fa-credit-card"></i> Metode Pembayaran</h4>
+            <h4>Metode Pembayaran</h4>
             <p><i class="fas fa-credit-card"></i> Midtrans</p>
             <p><i class="fas fa-university"></i> Bank Transfer</p>
             <p><i class="fas fa-qrcode"></i> QRIS / E-Wallet</p>
@@ -602,99 +512,75 @@
 </div>
 
 <script>
-    const allProducts = [
-        { id: 1, name: "StreamKey Pro X1", desc: "Akses unlimited stream key, stabil 4K", price: 129000, priceFormatted: "Rp 129.000", icon: "fas fa-key" },
-        { id: 2, name: "Live Studio Elite", desc: "Fitur mixing & transisi profesional", price: 249000, priceFormatted: "Rp 249.000", icon: "fas fa-chalkboard-user" },
-        { id: 3, name: "RTMP Server Premium", desc: "Low latency, multi platform", price: 189000, priceFormatted: "Rp 189.000", icon: "fas fa-server" },
-        { id: 4, name: "Agency Dashboard", desc: "Kelola streamer & analytics", price: 349000, priceFormatted: "Rp 349.000", icon: "fas fa-chart-line" },
-        { id: 5, name: "StreamKey Pro X2", desc: "Dual output + auto recording", price: 199000, priceFormatted: "Rp 199.000", icon: "fas fa-microphone-alt" },
-        { id: 6, name: "Live Overlay Pack", desc: "100+ template interaktif", price: 79000, priceFormatted: "Rp 79.000", icon: "fas fa-layer-group" },
-        { id: 7, name: "Cloud Transcoder", desc: "Konversi otomatis ke HLS", price: 299000, priceFormatted: "Rp 299.000", icon: "fas fa-cloud-upload-alt" },
-        { id: 8, name: "Stream Analytics+", desc: "Real-time viewer insights", price: 159000, priceFormatted: "Rp 159.000", icon: "fas fa-chart-simple" },
-        { id: 9, name: "Monetization Gateway", desc: "Sistem tip & subs", price: 399000, priceFormatted: "Rp 399.000", icon: "fas fa-coins" },
-        { id: 10, name: "Mobile Broadcaster", desc: "Streaming dari HP pro", price: 99000, priceFormatted: "Rp 99.000", icon: "fas fa-mobile-alt" },
-        { id: 11, name: "Encoder Ultra", desc: "Hardware encoding support", price: 449000, priceFormatted: "Rp 449.000", icon: "fas fa-microchip" },
-        { id: 12, name: "R2 Replay Buffer", desc: "Instant replay & highlight", price: 139000, priceFormatted: "Rp 139.000", icon: "fas fa-clock" },
-        { id: 13, name: "StreamKey Ultimate", desc: "Unlimited devices + support prioritas", price: 529000, priceFormatted: "Rp 529.000", icon: "fas fa-crown" },
-        { id: 14, name: "Live Shopping Plugin", desc: "E-commerce integration", price: 279000, priceFormatted: "Rp 279.000", icon: "fas fa-cart-shopping" }
+    const products = [
+        { id: 1, name: "StreamKey Pro X1", desc: "Akses unlimited stream key, stabil 4K", price: "Rp 129.000", icon: "fas fa-key" },
+        { id: 2, name: "Live Studio Elite", desc: "Fitur mixing & transisi profesional", price: "Rp 249.000", icon: "fas fa-chalkboard-user" },
+        { id: 3, name: "RTMP Server Premium", desc: "Low latency, multi platform", price: "Rp 189.000", icon: "fas fa-server" },
+        { id: 4, name: "Agency Dashboard", desc: "Kelola streamer & analytics", price: "Rp 349.000", icon: "fas fa-chart-line" },
+        { id: 5, name: "StreamKey Pro X2", desc: "Dual output + auto recording", price: "Rp 199.000", icon: "fas fa-microphone-alt" },
+        { id: 6, name: "Live Overlay Pack", desc: "100+ template interaktif", price: "Rp 79.000", icon: "fas fa-layer-group" },
+        { id: 7, name: "Cloud Transcoder", desc: "Konversi otomatis ke HLS", price: "Rp 299.000", icon: "fas fa-cloud-upload-alt" },
+        { id: 8, name: "Stream Analytics+", desc: "Real-time viewer insights", price: "Rp 159.000", icon: "fas fa-chart-simple" },
+        { id: 9, name: "Monetization Gateway", desc: "Sistem tip & subs", price: "Rp 399.000", icon: "fas fa-coins" },
+        { id: 10, name: "Mobile Broadcaster", desc: "Streaming dari HP pro", price: "Rp 99.000", icon: "fas fa-mobile-alt" },
+        { id: 11, name: "Encoder Ultra", desc: "Hardware encoding support", price: "Rp 449.000", icon: "fas fa-microchip" },
+        { id: 12, name: "R2 Replay Buffer", desc: "Instant replay & highlight", price: "Rp 139.000", icon: "fas fa-clock" }
     ];
 
-    let currentDisplay = 12;
-    let searchTerm = "";
-    let registeredAgencies = [];
+    let displayCount = 8;
+    let searchQuery = "";
+    let agencies = [];
 
     function showToast(msg) {
         const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`;
+        toast.className = 'toast-msg';
+        toast.innerHTML = msg;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 3000);
     }
 
     function getFiltered() {
-        if (!searchTerm) return allProducts;
-        return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-
-    // === MIDTRANS INTEGRATION - SIMULASI DEMO ===
-    // Karena di GitHub Pages tidak bisa backend, kita gunakan simulasi yang tetap profesional
-    async function processPayment(product) {
-        showToast(`Memproses pesanan ${product.name}...`);
-        
-        // Simulasi popup pembayaran Midtrans
-        const confirmPay = confirm(`🛒 R2 Agency Store\n\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\n\nMetode Pembayaran:\n• Virtual Account (BCA/Mandiri/BNI)\n• QRIS\n• Credit Card\n• E-Wallet (OVO/Gopay)\n\nKlik OK untuk melanjutkan ke halaman pembayaran Midtrans`);
-        
-        if (confirmPay) {
-            // Simulasi redirect ke Midtrans
-            showToast(`⏳ Mengarahkan ke Midtrans...`);
-            
-            setTimeout(() => {
-                alert(`🎉 Transaksi Berhasil!\n\nOrder ID: #R2${Date.now()}\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\nStatus: PAID\n\nTerima kasih telah berbelanja di R2 Agency Store!\n\nInvoice akan dikirim ke email Anda.`);
-                showToast(`✅ Pembayaran berhasil! Produk akan segera diproses.`);
-            }, 1500);
-        } else {
-            showToast(`❌ Pembayaran dibatalkan`);
-        }
+        if (!searchQuery) return products;
+        return products.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 
     function renderProducts() {
         const filtered = getFiltered();
-        const visible = filtered.slice(0, currentDisplay);
-        const container = document.getElementById('productsContainer');
+        const visible = filtered.slice(0, displayCount);
+        const container = document.getElementById('productGrid');
         
         if (visible.length === 0) {
-            container.innerHTML = '<div class="no-result"><i class="fas fa-search"></i> Produk tidak ditemukan</div>';
-            document.getElementById('loadMoreBtn').style.display = 'none';
+            container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:3rem;">🔍 Produk tidak ditemukan</div>';
             return;
         }
         
-        document.getElementById('loadMoreBtn').style.display = 'inline-block';
         container.innerHTML = visible.map(p => `
-            <div class="product-card">
-                <div class="product-img"><i class="${p.icon}"></i></div>
-                <div class="product-info">
+            <div class="product-item">
+                <div class="product-image"><i class="${p.icon}"></i></div>
+                <div class="product-details">
                     <div class="product-title">${p.name}</div>
                     <div class="product-desc">${p.desc}</div>
-                    <div class="product-price">${p.priceFormatted}</div>
-                    <button class="buy-btn" data-id="${p.id}"><i class="fas fa-shopping-cart"></i> Beli</button>
+                    <div class="product-price">${p.price}</div>
+                    <button class="btn-purchase" data-id="${p.id}"><i class="fas fa-shopping-cart"></i> Beli</button>
                 </div>
             </div>
         `).join('');
         
-        document.querySelectorAll('.buy-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.btn-purchase').forEach(btn => {
+            btn.onclick = () => {
                 const id = parseInt(btn.dataset.id);
-                const product = allProducts.find(p => p.id === id);
-                if (product) processPayment(product);
-            });
+                const product = products.find(p => p.id === id);
+                showToast(`🛒 ${product.name} - ${product.price}`);
+                alert(`💳 Pembayaran via Midtrans\n\nProduk: ${product.name}\nTotal: ${product.price}\n\nDemo: Klik OK untuk simulasi pembayaran`);
+                showToast(`✅ Pembayaran berhasil! Produk akan diproses.`);
+            };
         });
         
-        const totalFiltered = filtered.length;
         const loadBtn = document.getElementById('loadMoreBtn');
-        if (currentDisplay >= totalFiltered) {
-            loadBtn.style.opacity = '0.6';
+        if (displayCount >= filtered.length) {
+            loadBtn.style.opacity = '0.5';
             loadBtn.style.pointerEvents = 'none';
-            loadBtn.innerHTML = '<i class="fas fa-check"></i> Semua produk';
+            loadBtn.innerHTML = '✓ Semua produk';
         } else {
             loadBtn.style.opacity = '1';
             loadBtn.style.pointerEvents = 'auto';
@@ -703,87 +589,89 @@
     }
 
     function loadMore() {
-        currentDisplay += 6;
+        displayCount += 4;
         renderProducts();
     }
 
-    function searchHandler() {
-        currentDisplay = 12;
-        renderProducts();
-    }
-
-    function isRegistered() {
-        if (registeredAgencies.length === 0) {
-            showToast("⚠️ Anda harus daftar agency dulu!");
-            return false;
-        }
-        return true;
-    }
-
-    function setupMenus() {
+    // Menu Actions
+    function setupActions() {
         const wa = "6282298466638";
         
-        document.getElementById('menuMimin').onclick = () => window.open(`https://wa.me/${wa}?text=Halo%20Mimin%20R2%20Agency`, '_blank');
+        document.getElementById('actionMimin').onclick = () => window.open(`https://wa.me/${wa}?text=Halo%20Mimin%20R2%20Agency`, '_blank');
         
-        document.getElementById('menuDaftar').onclick = () => {
-            let nama = prompt("Nama Agency:");
-            if (nama && nama.trim()) {
+        document.getElementById('actionDaftar').onclick = () => {
+            let name = prompt("Nama Agency:");
+            if (name && name.trim()) {
                 let email = prompt("Email:");
                 if (email && email.includes('@')) {
-                    registeredAgencies.push({ name: nama, email });
-                    showToast(`✅ Agency "${nama}" berhasil daftar!`);
-                    window.open(`https://wa.me/${wa}?text=Daftar%20Agency%3A%20${encodeURIComponent(nama)}%20Email%3A%20${encodeURIComponent(email)}`, '_blank');
-                } else alert("Email tidak valid");
+                    agencies.push({ name, email });
+                    showToast(`✅ Agency "${name}" berhasil daftar!`);
+                    window.open(`https://wa.me/${wa}?text=Daftar%20Agency%3A%20${encodeURIComponent(name)}`, '_blank');
+                }
             }
         };
         
-        document.getElementById('menuStreamKey').onclick = () => {
-            if (!isRegistered()) return;
+        const needRegister = () => {
+            if (agencies.length === 0) {
+                showToast("⚠️ Daftar agency dulu ya!");
+                return false;
+            }
+            return true;
+        };
+        
+        document.getElementById('actionStreamKey').onclick = () => {
+            if (!needRegister()) return;
             let req = prompt("Request fitur Stream Key:");
-            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Stream%20Key%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
+            if (req) window.open(`https://wa.me/${wa}?text=Request%20Stream%20Key%3A%20${encodeURIComponent(req)}`, '_blank');
         };
         
-        document.getElementById('menuLiveStream').onclick = () => {
-            if (!isRegistered()) return;
+        document.getElementById('actionLiveStream').onclick = () => {
+            if (!needRegister()) return;
             let req = prompt("Request fitur Live Streaming:");
-            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Live%20Streaming%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
+            if (req) window.open(`https://wa.me/${wa}?text=Request%20Live%20Streaming%3A%20${encodeURIComponent(req)}`, '_blank');
         };
         
+        // Navigasi
         document.getElementById('navHome').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.getElementById('navProducts').onclick = () => document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' });
-        document.getElementById('navAbout').onclick = () => showToast("R2 Agency - Live Streaming Solutions");
+        document.getElementById('navProducts').onclick = () => document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('navAbout').onclick = () => showToast("R2 Agency - Premium Live Streaming");
         
-        document.getElementById('mobileHome').onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); closeMobile(); };
-        document.getElementById('mobileProducts').onclick = () => { document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' }); closeMobile(); };
-        document.getElementById('mobileAbout').onclick = () => { showToast("R2 Agency Official"); closeMobile(); };
-    }
-
-    function openMobile() {
-        document.getElementById('mobileMenu').classList.add('active');
-        document.getElementById('overlay').classList.add('active');
-    }
-    function closeMobile() {
-        document.getElementById('mobileMenu').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
+        // Mobile
+        document.getElementById('mobileHome').onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); closeSidebar(); };
+        document.getElementById('mobileProducts').onclick = () => { document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth' }); closeSidebar(); };
+        document.getElementById('mobileAbout').onclick = () => { showToast("R2 Agency Official"); closeSidebar(); };
     }
 
     function setupSearch() {
-        const desktopSearch = document.getElementById('searchInputDesktop');
-        const mobileSearch = document.getElementById('searchInputMobile');
-        desktopSearch.addEventListener('input', (e) => { searchTerm = e.target.value; searchHandler(); });
-        mobileSearch.addEventListener('input', (e) => { searchTerm = e.target.value; searchHandler(); });
+        const searchGlobal = document.getElementById('searchGlobal');
+        const searchMobile = document.getElementById('searchMobile');
+        const handler = (e) => {
+            searchQuery = e.target.value;
+            displayCount = 8;
+            renderProducts();
+        };
+        searchGlobal.addEventListener('input', handler);
+        searchMobile.addEventListener('input', handler);
     }
 
-    document.getElementById('hamburgerBtn').onclick = openMobile;
-    document.getElementById('closeMobile').onclick = closeMobile;
-    document.getElementById('overlay').onclick = closeMobile;
+    function openSidebar() {
+        document.getElementById('mobileSidebar').classList.add('active');
+        document.getElementById('sidebarOverlay').classList.add('active');
+    }
+    function closeSidebar() {
+        document.getElementById('mobileSidebar').classList.remove('active');
+        document.getElementById('sidebarOverlay').classList.remove('active');
+    }
+
+    document.getElementById('hamburgerBtn').onclick = openSidebar;
+    document.getElementById('closeSidebar').onclick = closeSidebar;
+    document.getElementById('sidebarOverlay').onclick = closeSidebar;
     document.getElementById('loadMoreBtn').onclick = loadMore;
     
     renderProducts();
-    setupMenus();
+    setupActions();
     setupSearch();
-    
-    showToast("💳 Selamat datang di R2 Agency Store!");
+    showToast("✨ Selamat datang di R2 Agency Store!");
 </script>
 </body>
 </html>
