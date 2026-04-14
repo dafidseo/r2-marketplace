@@ -1,839 +1,282 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>R2 Agency Store - Live Streaming Solutions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Midtrans Snap -->
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .navbar-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-icon i {
-            font-size: 1.3rem;
-            color: white;
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: #0f172a;
-        }
-
-        .logo-text span {
-            color: #2563eb;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #475569;
-        }
-
-        .nav-link:hover {
-            background: #f1f5f9;
-            color: #2563eb;
-        }
-
-        .search-desktop {
-            display: flex;
-            align-items: center;
-            background: #f1f5f9;
-            border-radius: 40px;
-            padding: 0.4rem 1rem;
-            gap: 8px;
-            width: 260px;
-        }
-
-        .search-desktop i {
-            color: #94a3b8;
-        }
-
-        .search-desktop input {
-            border: none;
-            background: none;
-            outline: none;
-            width: 100%;
-            font-size: 0.85rem;
-        }
-
-        .hamburger {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #1e293b;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100vh;
-            background: white;
-            box-shadow: -2px 0 20px rgba(0,0,0,0.1);
-            z-index: 200;
-            padding: 1.5rem;
-            transition: right 0.3s ease;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            margin-bottom: 1rem;
-        }
-
-        .mobile-close {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        .mobile-link {
-            display: block;
-            padding: 0.8rem 0;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 199;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Hero */
-        .hero-section {
-            text-align: center;
-            padding: 2.5rem 0 1.5rem;
-        }
-
-        .big-logo {
-            display: inline-block;
-            position: relative;
-            margin-bottom: 1rem;
-        }
-
-        .big-logo-circle {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 15px 35px -8px rgba(37,99,235,0.3);
-        }
-
-        .big-logo-circle i {
-            font-size: 3rem;
-            color: white;
-        }
-
-        .check-badge-big {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #10b981;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid white;
-        }
-
-        .check-badge-big i {
-            font-size: 0.8rem;
-            color: white;
-        }
-
-        .hero-section h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-section p {
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-
-        .official-badge {
-            display: inline-block;
-            background: #eef2ff;
-            padding: 0.3rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2563eb;
-        }
-
-        /* Action Menu */
-        .action-menu {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            padding: 1rem 0;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .action-btn {
-            background: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #e2e8f0;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: #1e293b;
-        }
-
-        .action-btn i {
-            color: #2563eb;
-        }
-
-        .action-btn:hover {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        .action-btn:hover i {
-            color: white;
-        }
-
-        /* Products */
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            border: 1px solid #e2e8f0;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-            border-color: #2563eb;
-        }
-
-        .product-img {
-            height: 180px;
-            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .product-info {
-            padding: 1rem;
-        }
-
-        .product-title {
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .product-desc {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: #2563eb;
-            margin-bottom: 0.8rem;
-        }
-
-        .buy-btn {
-            width: 100%;
-            background: #0f172a;
-            color: white;
-            border: none;
-            padding: 0.6rem;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .buy-btn:hover {
-            background: #2563eb;
-        }
-
-        .loadmore-container {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .loadmore-btn {
-            background: white;
-            border: 2px solid #2563eb;
-            padding: 0.8rem 2rem;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #2563eb;
-        }
-
-        .loadmore-btn:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        .no-result {
-            text-align: center;
-            padding: 3rem;
-            color: #64748b;
-            grid-column: 1 / -1;
-        }
-
-        /* Footer */
-        .footer {
-            background: #0f172a;
-            color: #cbd5e1;
-            padding: 2rem;
-            border-radius: 24px 24px 0 0;
-            margin-top: 3rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-col h4 {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .footer-col p {
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-
-        .social-icons a {
-            background: rgba(255,255,255,0.1);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: 0.2s;
-            text-decoration: none;
-        }
-
-        .social-icons a:hover {
-            background: #2563eb;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1e293b;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 12px;
-            z-index: 300;
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 0 1rem; }
-            .navbar-content { padding: 0.8rem 1rem; }
-            .nav-links, .search-desktop { display: none; }
-            .hamburger { display: block; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-            .action-menu { gap: 0.6rem; }
-            .action-btn { padding: 0.5rem 1rem; font-size: 0.7rem; }
-            .footer-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-col p { justify-content: center; }
-            .social-icons { justify-content: center; }
-            .hero-section h1 { font-size: 1.5rem; }
-            .big-logo-circle { width: 80px; height: 80px; }
-            .big-logo-circle i { font-size: 2.2rem; }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .products-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R2 Management - Marketplace</title>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+    .profile { text-align: center; }
+    .profile img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; margin: 0 auto; line-height: 100px; font-size: 40px; color: white; }
+    h1 { font-size: 24px; margin: 10px 0; }
+    .badge { background: #1d9bf0; display: inline-block; width: 22px; height: 22px; border-radius: 50%; color: white; font-size: 12px; line-height: 22px; }
+    .links a { display: block; background: #f0f0f0; padding: 12px; border-radius: 10px; text-decoration: none; color: #333; margin-bottom: 10px; }
+    .store-badge { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; }
+    .search-bar { background: #f0f0f0; padding: 10px; border-radius: 30px; margin: 15px 0; display: flex; gap: 10px; }
+    .search-bar input { flex: 1; border: none; background: none; outline: none; }
+    .categories { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .cat-item { padding: 8px 20px; background: #f0f0f0; border-radius: 30px; cursor: pointer; }
+    .cat-item.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+    .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .product img { width: 100%; height: 180px; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 50px; color: white; }
+    .product-info { padding: 15px; }
+    .product-name { font-weight: bold; margin-bottom: 5px; }
+    .price { color: #667eea; font-weight: bold; font-size: 18px; }
+    .old-price { text-decoration: line-through; color: #999; font-size: 12px; }
+    button { width: 100%; background: linear-gradient(135deg, #667eea, #764ba2); border: none; padding: 10px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-content { background: white; border-radius: 20px; padding: 25px; width: 90%; max-width: 400px; text-align: center; position: relative; }
+    .close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; }
+    .payment-methods { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 15px 0; }
+    .payment-badge { background: #f0f0f0; padding: 5px 10px; border-radius: 20px; font-size: 11px; }
+    .btn-midtrans { background: linear-gradient(135deg, #1E3C72, #2A5298); width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; }
+    .loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
+    .loading .spinner { background: white; padding: 30px; border-radius: 20px; text-align: center; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fa-spinner { animation: spin 1s linear infinite; }
+    .footer { text-align: center; padding: 20px; color: white; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 8px; z-index: 3000; animation: slideIn 0.3s; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+  </style>
 </head>
 <body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="navbar-content">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-broadcast-tower"></i></div>
-            <div class="logo-text">R2 <span>Agency</span></div>
-        </div>
-        <div class="nav-links">
-            <div class="nav-link" id="navHome">Home</div>
-            <div class="nav-link" id="navProducts">Produk</div>
-            <div class="nav-link" id="navAbout">Tentang</div>
-        </div>
-        <div class="search-desktop">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInputDesktop" placeholder="Cari produk...">
-        </div>
-        <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
-    </div>
-</div>
-
-<!-- Mobile Menu -->
-<div class="overlay" id="overlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-header">
-        <h4>Menu</h4>
-        <button class="mobile-close" id="closeMobile"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="mobile-link" id="mobileHome">🏠 Home</div>
-    <div class="mobile-link" id="mobileProducts">📦 Produk</div>
-    <div class="mobile-link" id="mobileAbout">ℹ️ Tentang</div>
-    <div style="margin-top: 1rem;">
-        <div class="search-desktop" style="width: 100%;">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInputMobile" placeholder="Cari produk...">
-        </div>
-    </div>
-</div>
-
 <div class="container">
-    <!-- HERO -->
-    <div class="hero-section">
-        <div class="big-logo">
-            <div class="big-logo-circle"><i class="fas fa-broadcast-tower"></i></div>
-            <div class="check-badge-big"><i class="fas fa-check"></i></div>
-        </div>
-        <h1>R2 Agency Store</h1>
-        <p>Solusi live streaming terpercaya untuk kreator & agency</p>
-        <div class="official-badge"><i class="fas fa-crown"></i> R2 Agency Official</div>
-    </div>
+  <div class="card profile">
+    <div class="profile-img" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 40px; color: white;">R2</div>
+    <h1>R2 Management <span class="badge">✓</span></h1>
+    <p>Agency TikTok Official Partner</p>
+  </div>
 
-    <!-- MENU 1-4 -->
-    <div class="action-menu">
-        <div class="action-btn" id="menuMimin"><i class="fas fa-user-tie"></i> 1. Mimin R2 Agency</div>
-        <div class="action-btn" id="menuStreamKey"><i class="fas fa-key"></i> 2. Request Fitur Stream Key</div>
-        <div class="action-btn" id="menuLiveStream"><i class="fas fa-video"></i> 3. Request Fitur Live Streaming</div>
-        <div class="action-btn" id="menuDaftar"><i class="fas fa-file-signature"></i> 4. Daftar Agency</div>
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h3>R2 Digital Marketplace</h3>
+      <span class="store-badge">Official Store</span>
     </div>
-
-    <!-- PRODUCTS -->
-    <div class="section-title">🔥 Produk Unggulan</div>
-    <div class="products-grid" id="productsContainer"></div>
-
-    <div class="loadmore-container">
-        <button class="loadmore-btn" id="loadMoreBtn"><i class="fas fa-chevron-down"></i> Load More</button>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Cari produk...">
     </div>
+    <div class="categories" id="categories">
+      <div class="cat-item active" data-cat="all">Semua</div>
+      <div class="cat-item" data-cat="les">Les Private</div>
+      <div class="cat-item" data-cat="overlay">Overlay</div>
+      <div class="cat-item" data-cat="followers">Followers</div>
+      <div class="cat-item" data-cat="tiktok">TikTok</div>
+      <div class="cat-item" data-cat="bundle">Paket Hemat</div>
+    </div>
+  </div>
+
+  <div class="products" id="products"></div>
+
+  <div class="footer">
+    <p>© 2026 R2 Management - All rights reserved</p>
+  </div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4><i class="fas fa-store"></i> R2 Agency</h4>
-            <p>Solusi live streaming terpercaya</p>
-            <div class="social-icons">
-                <a href="https://wa.me/6282298466638"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h4><i class="fas fa-phone-alt"></i> Kontak Resmi</h4>
-            <p><i class="fab fa-whatsapp"></i> +62 822-9846-6638</p>
-            <p><i class="far fa-envelope"></i> support@r2agency.id</p>
-            <p><i class="fas fa-clock"></i> 24/7 Support</p>
-        </div>
-        <div class="footer-col">
-            <h4><i class="fas fa-credit-card"></i> Metode Pembayaran</h4>
-            <p><i class="fas fa-credit-card"></i> Midtrans</p>
-            <p><i class="fas fa-university"></i> Bank Transfer</p>
-            <p><i class="fas fa-qrcode"></i> QRIS / E-Wallet</p>
-        </div>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="modalProductName">Product Name</h3>
+    <h2 id="modalPrice" style="color:#667eea">Rp0</h2>
+    <div class="payment-methods">
+      <span class="payment-badge">QRIS</span>
+      <span class="payment-badge">Kartu Kredit</span>
+      <span class="payment-badge">GoPay</span>
+      <span class="payment-badge">Bank Transfer</span>
+      <span class="payment-badge">Indomaret</span>
+      <span class="payment-badge">DANA/OVO</span>
+      <span class="payment-badge">ShopeePay</span>
     </div>
-    <div class="copyright">© 2026 R2 Agency Official | All Rights Reserved</div>
+    <button class="btn-midtrans" id="payBtn">💰 Bayar Sekarang dengan Midtrans</button>
+    <p style="margin-top:15px; font-size:11px; color:#999;">🔒 Pembayaran Aman & Terenkripsi</p>
+  </div>
+</div>
+
+<div id="loading" class="loading">
+  <div class="spinner">
+    <div style="font-size:40px;">⏳</div>
+    <p>Memproses Pembayaran...</p>
+  </div>
 </div>
 
 <script>
-    const allProducts = [
-        { id: 1, name: "StreamKey Pro X1", desc: "Akses unlimited stream key, stabil 4K", price: 129000, priceFormatted: "Rp 129.000", icon: "fas fa-key" },
-        { id: 2, name: "Live Studio Elite", desc: "Fitur mixing & transisi profesional", price: 249000, priceFormatted: "Rp 249.000", icon: "fas fa-chalkboard-user" },
-        { id: 3, name: "RTMP Server Premium", desc: "Low latency, multi platform", price: 189000, priceFormatted: "Rp 189.000", icon: "fas fa-server" },
-        { id: 4, name: "Agency Dashboard", desc: "Kelola streamer & analytics", price: 349000, priceFormatted: "Rp 349.000", icon: "fas fa-chart-line" },
-        { id: 5, name: "StreamKey Pro X2", desc: "Dual output + auto recording", price: 199000, priceFormatted: "Rp 199.000", icon: "fas fa-microphone-alt" },
-        { id: 6, name: "Live Overlay Pack", desc: "100+ template interaktif", price: 79000, priceFormatted: "Rp 79.000", icon: "fas fa-layer-group" },
-        { id: 7, name: "Cloud Transcoder", desc: "Konversi otomatis ke HLS", price: 299000, priceFormatted: "Rp 299.000", icon: "fas fa-cloud-upload-alt" },
-        { id: 8, name: "Stream Analytics+", desc: "Real-time viewer insights", price: 159000, priceFormatted: "Rp 159.000", icon: "fas fa-chart-simple" },
-        { id: 9, name: "Monetization Gateway", desc: "Sistem tip & subs", price: 399000, priceFormatted: "Rp 399.000", icon: "fas fa-coins" },
-        { id: 10, name: "Mobile Broadcaster", desc: "Streaming dari HP pro", price: 99000, priceFormatted: "Rp 99.000", icon: "fas fa-mobile-alt" },
-        { id: 11, name: "Encoder Ultra", desc: "Hardware encoding support", price: 449000, priceFormatted: "Rp 449.000", icon: "fas fa-microchip" },
-        { id: 12, name: "R2 Replay Buffer", desc: "Instant replay & highlight", price: 139000, priceFormatted: "Rp 139.000", icon: "fas fa-clock" },
-        { id: 13, name: "StreamKey Ultimate", desc: "Unlimited devices + support prioritas", price: 529000, priceFormatted: "Rp 529.000", icon: "fas fa-crown" },
-        { id: 14, name: "Live Shopping Plugin", desc: "E-commerce integration", price: 279000, priceFormatted: "Rp 279.000", icon: "fas fa-cart-shopping" }
-    ];
+const products = [
+  { id:1, name:"Les Private TikTok", cat:"les", price:1000000, oldPrice:2000000, img:"" },
+  { id:2, name:"Overlay Livestreaming", cat:"overlay", price:30000, oldPrice:50000, img:"" },
+  { id:3, name:"1.000 Followers TikTok", cat:"followers", price:100000, oldPrice:150000, img:"" },
+  { id:4, name:"1.000 Followers IG", cat:"followers", price:50000, oldPrice:100000, img:"" },
+  { id:5, name:"10.000 Followers TikTok", cat:"followers", price:700000, oldPrice:1000000, img:"" },
+  { id:6, name:"Akun Capcut Pro", cat:"bundle", price:200000, oldPrice:300000, img:"" },
+  { id:7, name:"100.000 Views TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"" },
+  { id:8, name:"1.000 Like TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"" }
+];
 
-    let currentDisplay = 12;
-    let searchTerm = "";
-    let registeredAgencies = [];
+let currentCat = "all";
+let currentSearch = "";
+let selectedProduct = null;
 
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function formatRp(amount) {
+  return "Rp" + amount.toLocaleString("id-ID");
+}
+
+function renderProducts() {
+  let filtered = products.filter(p => {
+    if (currentCat !== "all" && p.cat !== currentCat) return false;
+    if (currentSearch && !p.name.toLowerCase().includes(currentSearch.toLowerCase())) return false;
+    return true;
+  });
+  
+  const container = document.getElementById("products");
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:50px;">Produk tidak ditemukan</div>';
+    return;
+  }
+  
+  container.innerHTML = filtered.map(p => `
+    <div class="product">
+      <div style="height:180px; background:linear-gradient(135deg, #667eea, #764ba2); display:flex; align-items:center; justify-content:center; font-size:50px; color:white;">🎁</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div><span class="price">${formatRp(p.price)}</span> <span class="old-price">${formatRp(p.oldPrice)}</span></div>
+        <button onclick="openCheckout(${p.id})">🛒 Beli Sekarang</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openCheckout(id) {
+  selectedProduct = products.find(p => p.id === id);
+  document.getElementById("modalProductName").innerText = selectedProduct.name;
+  document.getElementById("modalPrice").innerHTML = formatRp(selectedProduct.price);
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  selectedProduct = null;
+}
+
+function showLoading() {
+  document.getElementById("loading").style.display = "flex";
+}
+
+function hideLoading() {
+  document.getElementById("loading").style.display = "none";
+}
+
+function generateOrderId() {
+  return "R2-" + Date.now() + "-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+}
+
+async function processPayment() {
+  if (!selectedProduct) {
+    alert("Pilih produk dulu!");
+    return;
+  }
+  
+  if (typeof snap === "undefined") {
+    alert("Midtrans sedang dimuat. Refresh halaman!");
+    return;
+  }
+  
+  showLoading();
+  closeModal();
+  
+  const orderId = generateOrderId();
+  const amount = selectedProduct.price;
+  
+  const data = {
+    transaction_details: {
+      order_id: orderId,
+      gross_amount: amount
+    },
+    item_details: [{
+      id: selectedProduct.id.toString(),
+      price: amount,
+      quantity: 1,
+      name: selectedProduct.name
+    }],
+    customer_details: {
+      first_name: "Customer R2",
+      email: "customer@r2management.com",
+      phone: "081234567890"
     }
-
-    function getFiltered() {
-        if (!searchTerm) return allProducts;
-        return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-
-    // === MIDTRANS INTEGRATION YANG BENAR ===
-    async function processPayment(product) {
-        showToast(`⏳ Memproses pesanan ${product.name}...`);
-        
-        try {
-            // 1. Siapkan data transaksi
-            const orderId = `R2-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-            const transactionData = {
-                transaction_details: {
-                    order_id: orderId,
-                    gross_amount: product.price
-                },
-                credit_card: {
-                    secure: true
-                },
-                customer_details: {
-                    first_name: "Customer",
-                    email: "customer@r2agency.id",
-                    phone: "08123456789"
-                },
-                item_details: [
-                    {
-                        id: product.id.toString(),
-                        price: product.price,
-                        quantity: 1,
-                        name: product.name
-                    }
-                ]
-            };
-            
-            // 2. Panggil Netlify Function untuk membuat token
-            const response = await fetch('/.netlify/functions/create-midtrans-token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(transactionData)
-            });
-            
-            const result = await response.json();
-            
-            if (result.token) {
-                // 3. Buka popup pembayaran Midtrans Snap
-                snap.pay(result.token, {
-                    onSuccess: function(result) {
-                        showToast(`✅ Pembayaran Berhasil! Order: ${result.order_id}`);
-                        alert(`🎉 Transaksi Sukses!\n\nOrder ID: ${result.order_id}\nStatus: ${result.transaction_status}\n\nTerima kasih telah berbelanja di R2 Agency Store!`);
-                    },
-                    onPending: function(result) {
-                        showToast(`⏳ Pembayaran Pending, silakan selesaikan pembayaran`);
-                        alert(`⏳ Pembayaran Pending\nOrder ID: ${result.order_id}\nSilakan selesaikan pembayaran Anda.`);
-                    },
-                    onError: function(result) {
-                        showToast(`❌ Pembayaran Gagal: ${result.status_message}`);
-                        alert(`❌ Pembayaran Gagal\n${result.status_message}`);
-                    },
-                    onClose: function() {
-                        showToast(`🚪 Popup pembayaran ditutup`);
-                    }
-                });
-            } else {
-                throw new Error(result.error || 'Gagal membuat token');
-            }
-            
-        } catch (error) {
-            console.error('Payment error:', error);
-            showToast(`❌ Error: ${error.message}`);
-            alert(`Gagal memproses pembayaran: ${error.message}\n\nSilakan coba lagi.`);
-        }
-    }
-
-    function renderProducts() {
-        const filtered = getFiltered();
-        const visible = filtered.slice(0, currentDisplay);
-        const container = document.getElementById('productsContainer');
-        
-        if (visible.length === 0) {
-            container.innerHTML = '<div class="no-result"><i class="fas fa-search"></i> Produk tidak ditemukan</div>';
-            document.getElementById('loadMoreBtn').style.display = 'none';
-            return;
-        }
-        
-        document.getElementById('loadMoreBtn').style.display = 'inline-block';
-        container.innerHTML = visible.map(p => `
-            <div class="product-card">
-                <div class="product-img"><i class="${p.icon}"></i></div>
-                <div class="product-info">
-                    <div class="product-title">${p.name}</div>
-                    <div class="product-desc">${p.desc}</div>
-                    <div class="product-price">${p.priceFormatted}</div>
-                    <button class="buy-btn" data-id="${p.id}"><i class="fas fa-shopping-cart"></i> Beli</button>
-                </div>
-            </div>
-        `).join('');
-        
-        document.querySelectorAll('.buy-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.dataset.id);
-                const product = allProducts.find(p => p.id === id);
-                if (product) processPayment(product);
-            });
-        });
-        
-        const totalFiltered = filtered.length;
-        const loadBtn = document.getElementById('loadMoreBtn');
-        if (currentDisplay >= totalFiltered) {
-            loadBtn.style.opacity = '0.6';
-            loadBtn.style.pointerEvents = 'none';
-            loadBtn.innerHTML = '<i class="fas fa-check"></i> Semua produk';
-        } else {
-            loadBtn.style.opacity = '1';
-            loadBtn.style.pointerEvents = 'auto';
-            loadBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
-        }
-    }
-
-    function loadMore() {
-        currentDisplay += 6;
-        renderProducts();
-    }
-
-    function searchHandler() {
-        currentDisplay = 12;
-        renderProducts();
-    }
-
-    function isRegistered() {
-        if (registeredAgencies.length === 0) {
-            showToast("⚠️ Anda harus daftar agency dulu!");
-            return false;
-        }
-        return true;
-    }
-
-    function setupMenus() {
-        const wa = "6282298466638";
-        
-        document.getElementById('menuMimin').onclick = () => window.open(`https://wa.me/${wa}?text=Halo%20Mimin%20R2%20Agency`, '_blank');
-        
-        document.getElementById('menuDaftar').onclick = () => {
-            let nama = prompt("Nama Agency:");
-            if (nama && nama.trim()) {
-                let email = prompt("Email:");
-                if (email && email.includes('@')) {
-                    registeredAgencies.push({ name: nama, email });
-                    showToast(`✅ Agency "${nama}" berhasil daftar!`);
-                    window.open(`https://wa.me/${wa}?text=Daftar%20Agency%3A%20${encodeURIComponent(nama)}%20Email%3A%20${encodeURIComponent(email)}`, '_blank');
-                } else alert("Email tidak valid");
-            }
-        };
-        
-        document.getElementById('menuStreamKey').onclick = () => {
-            if (!isRegistered()) return;
-            let req = prompt("Request fitur Stream Key:");
-            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Stream%20Key%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
-        };
-        
-        document.getElementById('menuLiveStream').onclick = () => {
-            if (!isRegistered()) return;
-            let req = prompt("Request fitur Live Streaming:");
-            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Live%20Streaming%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
-        };
-        
-        document.getElementById('navHome').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.getElementById('navProducts').onclick = () => document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' });
-        document.getElementById('navAbout').onclick = () => showToast("R2 Agency - Live Streaming Solutions");
-        
-        document.getElementById('mobileHome').onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); closeMobile(); };
-        document.getElementById('mobileProducts').onclick = () => { document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' }); closeMobile(); };
-        document.getElementById('mobileAbout').onclick = () => { showToast("R2 Agency Official"); closeMobile(); };
-    }
-
-    function openMobile() {
-        document.getElementById('mobileMenu').classList.add('active');
-        document.getElementById('overlay').classList.add('active');
-    }
-    function closeMobile() {
-        document.getElementById('mobileMenu').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
-    }
-
-    function setupSearch() {
-        const desktopSearch = document.getElementById('searchInputDesktop');
-        const mobileSearch = document.getElementById('searchInputMobile');
-        desktopSearch.addEventListener('input', (e) => { searchTerm = e.target.value; searchHandler(); });
-        mobileSearch.addEventListener('input', (e) => { searchTerm = e.target.value; searchHandler(); });
-    }
-
-    document.getElementById('hamburgerBtn').onclick = openMobile;
-    document.getElementById('closeMobile').onclick = closeMobile;
-    document.getElementById('overlay').onclick = closeMobile;
-    document.getElementById('loadMoreBtn').onclick = loadMore;
+  };
+  
+  try {
+    // Panggil Netlify Function dengan nama yang benar: create-midtrans-token
+    const response = await fetch("/.netlify/functions/create-midtrans-token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
     
+    const result = await response.json();
+    hideLoading();
+    
+    if (result.token) {
+      // POPUP MIDTRANS LANGSUNG MUNCUL!
+      snap.pay(result.token, {
+        onSuccess: function(res) {
+          showToast("✅ Pembayaran Berhasil!");
+          alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRp(amount) + "\n\nOrder ID: " + res.order_id);
+          window.open("https://wa.me/6282298466638?text=Halo%20Admin,%20saya%20sudah%20bayar%20" + encodeURIComponent(selectedProduct.name), "_blank");
+        },
+        onPending: function(res) {
+          alert("⏳ Pembayaran Pending!\n\nSilakan selesaikan pembayaran Anda.\nOrder ID: " + res.order_id);
+        },
+        onError: function(res) {
+          alert("❌ Pembayaran gagal!\n\n" + (res.status_message || "Silakan coba lagi"));
+        },
+        onClose: function() {
+          showToast("Popup pembayaran ditutup");
+        }
+      });
+    } else {
+      alert("Gagal: " + (result.error || result.status_message || "Unknown error"));
+    }
+  } catch (err) {
+    hideLoading();
+    console.error("Error:", err);
+    alert("Error: " + err.message + "\n\nPastikan Netlify Function sudah terdeploy dengan benar!");
+  }
+}
+
+// Event listeners
+document.getElementById("payBtn").addEventListener("click", processPayment);
+document.querySelector(".close").addEventListener("click", closeModal);
+window.onclick = (e) => { if (e.target === document.getElementById("modal")) closeModal(); };
+
+document.querySelectorAll(".cat-item").forEach(item => {
+  item.addEventListener("click", function() {
+    document.querySelectorAll(".cat-item").forEach(c => c.classList.remove("active"));
+    this.classList.add("active");
+    currentCat = this.dataset.cat;
     renderProducts();
-    setupMenus();
-    setupSearch();
-    
-    showToast("💳 Selamat datang di R2 Agency Store! Pembayaran menggunakan Midtrans");
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  currentSearch = e.target.value;
+  renderProducts();
+});
+
+renderProducts();
+window.openCheckout = openCheckout;
+
+showToast("💳 Selamat datang! Klik Beli untuk pembayaran Midtrans");
 </script>
 </body>
 </html>
