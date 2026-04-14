@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>R2 Management - Official Marketplace</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="media/r2.png" onerror="this.href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏪</text></svg>'">
+  <link rel="apple-touch-icon" href="media/r2.png">
   <!-- Midtrans Snap -->
   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
   <!-- Font Awesome -->
@@ -46,14 +49,12 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
       cursor: pointer;
     }
 
     .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 200px;
+      height: 44.44px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -63,19 +64,7 @@
     .logo-icon img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .logo-text {
-      font-size: 18px;
-      font-weight: 800;
-      color: #333;
-    }
-
-    .logo-text span {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      object-fit: contain;
     }
 
     .nav-menu {
@@ -141,6 +130,17 @@
       margin-bottom: 20px;
     }
 
+    .mobile-logo-icon {
+      width: 150px;
+      height: 33.33px;
+    }
+
+    .mobile-logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .mobile-close {
       font-size: 24px;
       cursor: pointer;
@@ -203,7 +203,7 @@
 
     .banner-wrapper {
       display: flex;
-      transition: transform 0.3s ease-out;
+      transition: transform 0.5s ease-out;
     }
 
     .banner-slide {
@@ -214,13 +214,11 @@
 
     .banner-slide img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       pointer-events: none;
     }
 
-    /* Tombol panah */
     .banner-arrow {
       position: absolute;
       top: 50%;
@@ -251,7 +249,6 @@
       right: 15px;
     }
 
-    /* Indikator dots */
     .banner-dots {
       position: absolute;
       bottom: 15px;
@@ -345,12 +342,6 @@
       line-height: 18px;
       color: white;
       margin-left: 5px;
-    }
-
-    .rating {
-      margin: 8px 0;
-      color: #ffc107;
-      font-size: 12px;
     }
 
     .official-tag {
@@ -605,6 +596,71 @@
       cursor: not-allowed;
     }
 
+    /* ============ FAQ SECTION ============ */
+    .faq-section {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px 0 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .faq-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .faq-title i {
+      color: #667eea;
+      font-size: 24px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #eee;
+      margin-bottom: 15px;
+    }
+
+    .faq-question {
+      padding: 15px 0;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .faq-question:hover {
+      color: #667eea;
+    }
+
+    .faq-question i {
+      transition: 0.3s;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .faq-answer.active {
+      max-height: 200px;
+      padding-bottom: 15px;
+    }
+
     /* Modal */
     .modal {
       display: none;
@@ -769,32 +825,6 @@
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 50px;
-      z-index: 1300;
-      animation: toastIn 0.3s ease;
-      white-space: nowrap;
-    }
-
-    @keyframes toastIn {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-      to {
-        bottom: 80px;
-        opacity: 1;
-      }
     }
 
     /* ============ FOOTER ============ */
@@ -973,6 +1003,12 @@
         display: block;
       }
       
+      /* Logo responsif di HP */
+      .logo-icon {
+        width: 120px;
+        height: 26.66px;
+      }
+      
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -999,9 +1035,27 @@
         padding: 30px 15px 20px;
       }
       
+      .footer-section:last-child {
+        grid-column: span 2;
+        order: 1;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .footer-section:last-child h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .footer-section:last-child .payment-icons {
+        justify-content: center;
+      }
+      
       .footer-section:first-child {
         grid-column: span 2;
+        order: 4;
         text-align: center;
+        margin-top: 10px;
       }
       
       .footer-section:first-child h3::after {
@@ -1016,6 +1070,7 @@
       .footer-section:nth-child(2) {
         text-align: left;
         grid-column: span 1;
+        order: 2;
       }
       
       .footer-section:nth-child(2) h3::after {
@@ -1029,6 +1084,7 @@
       .footer-section:nth-child(3) {
         text-align: left;
         grid-column: span 1;
+        order: 3;
       }
       
       .footer-section:nth-child(3) h3::after {
@@ -1037,21 +1093,6 @@
       
       .footer-section:nth-child(3) .contact-info {
         justify-content: flex-start;
-      }
-      
-      .footer-section:last-child {
-        grid-column: span 2;
-        text-align: center;
-        margin-top: 10px;
-      }
-      
-      .footer-section:last-child h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      
-      .footer-section:last-child .payment-icons {
-        justify-content: center;
       }
       
       .banner-arrow {
@@ -1094,9 +1135,19 @@
         padding: 8px 16px;
         font-size: 12px;
       }
+      
+      .faq-title {
+        font-size: 18px;
+      }
     }
 
     @media (max-width: 480px) {
+      /* Logo lebih kecil di HP kecil */
+      .logo-icon {
+        width: 100px;
+        height: 22.22px;
+      }
+      
       .products-grid {
         gap: 10px;
       }
@@ -1148,6 +1199,14 @@
         gap: 20px;
         padding: 25px 12px 15px;
       }
+      
+      .faq-question {
+        font-size: 13px;
+      }
+      
+      .faq-answer {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -1159,9 +1218,8 @@
     <div class="nav-content">
       <div class="logo" id="logoHome">
         <div class="logo-icon">
-          <img src="logo-r2.jpg" alt="R2 Logo" onerror="this.src='https://placehold.co/40x40/667eea/white?text=R2'">
+          <img src="media/logo.png" alt="R2 Logo" onerror="this.src='https://placehold.co/200x44/667eea/white?text=R2'">
         </div>
-        <div class="logo-text">R2 <span>Management</span></div>
       </div>
       
       <div class="nav-menu">
@@ -1171,8 +1229,8 @@
         <a class="nav-link" data-nav="products">
           <i class="fas fa-box"></i> Produk
         </a>
-        <a class="nav-link" data-nav="about">
-          <i class="fas fa-info-circle"></i> Tentang
+        <a class="nav-link" data-nav="faq">
+          <i class="fas fa-question-circle"></i> FAQ
         </a>
         <a class="nav-link" data-nav="contact">
           <i class="fas fa-envelope"></i> Kontak
@@ -1191,10 +1249,9 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
     <div class="logo" id="mobileLogoHome">
-      <div class="logo-icon">
-        <img src="logo-r2.jpg" alt="R2 Logo" onerror="this.src='https://placehold.co/40x40/667eea/white?text=R2'">
+      <div class="mobile-logo-icon">
+        <img src="media/logo.png" alt="R2 Logo" onerror="this.src='https://placehold.co/150x33/667eea/white?text=R2'">
       </div>
-      <div class="logo-text">R2 <span>Management</span></div>
     </div>
     <button class="mobile-close" id="mobileClose">
       <i class="fas fa-times"></i>
@@ -1206,8 +1263,8 @@
   <a class="mobile-link" data-nav="products">
     <i class="fas fa-box"></i> Produk
   </a>
-  <a class="mobile-link" data-nav="about">
-    <i class="fas fa-info-circle"></i> Tentang
+  <a class="mobile-link" data-nav="faq">
+    <i class="fas fa-question-circle"></i> FAQ
   </a>
   <a class="mobile-link" data-nav="contact">
     <i class="fas fa-envelope"></i> Kontak
@@ -1222,6 +1279,9 @@
     <a class="mobile-link" id="mobileLiveStream">
       <i class="fas fa-video"></i> Request Live Streaming
     </a>
+    <a class="mobile-link" id="mobileRekber">
+      <i class="fas fa-handshake"></i> Jasa Rekber
+    </a>
     <a class="mobile-link" id="mobileDaftar">
       <i class="fas fa-file-signature"></i> Daftar Agency
     </a>
@@ -1230,22 +1290,21 @@
 
 <!-- ============ MAIN CONTENT ============ -->
 <div class="container">
-  <!-- BANNER SLIDER - SWIPEABLE -->
+  <!-- BANNER SLIDER -->
   <div class="banner-container" id="bannerContainer">
     <div class="banner-slider">
       <div class="banner-wrapper" id="bannerWrapper">
         <div class="banner-slide">
-          <img src="https://rapspoint.com/_next/image?url=http%3A%2F%2Fhub.rapspoint.com%2Fstorage%2Fbanners%2Fmpl-karrie-banner-2-1775461260.png&w=1200&q=75" alt="Banner 1" onerror="this.src='https://placehold.co/1200x400/667eea/white?text=Banner+1'">
+          <img src="media/banner1.jpeg" alt="Banner 1" onerror="this.src='https://placehold.co/1200x400/667eea/white?text=Banner+1'">
         </div>
         <div class="banner-slide">
-          <img src="https://rapspoint.com/_next/image?url=http%3A%2F%2Fhub.rapspoint.com%2Fstorage%2Fbanners%2Fsl-zetian-banner-2-1775021248.png&w=1200&q=75" alt="Banner 2" onerror="this.src='https://placehold.co/1200x400/764ba2/white?text=Banner+2'">
+          <img src="media/banner2.jpeg" alt="Banner 2" onerror="this.src='https://placehold.co/1200x400/764ba2/white?text=Banner+2'">
         </div>
         <div class="banner-slide">
-          <img src="https://rapspoint.com/_next/image?url=http%3A%2F%2Fhub.rapspoint.com%2Fstorage%2Fbanners%2FBANNER%20RAPS%20CARI%20AKUN-1774756726.png&w=1200&q=75" alt="Banner 3" onerror="this.src='https://placehold.co/1200x400/1E3C72/white?text=Banner+3'">
+          <img src="media/banner3.jpeg" alt="Banner 3" onerror="this.src='https://placehold.co/1200x400/1E3C72/white?text=Banner+3'">
         </div>
       </div>
       
-      <!-- Tombol panah -->
       <div class="banner-arrow banner-arrow-left" id="arrowLeft">
         <i class="fas fa-chevron-left"></i>
       </div>
@@ -1253,7 +1312,6 @@
         <i class="fas fa-chevron-right"></i>
       </div>
       
-      <!-- Indikator dots -->
       <div class="banner-dots" id="bannerDots"></div>
     </div>
   </div>
@@ -1264,15 +1322,7 @@
       <img src="media/r2.png" alt="Profile" onerror="this.src='https://placehold.co/80x80/667eea/white?text=R2'">
     </div>
     <h2 id="profileNameHome">R2 Management <span class="verified-badge">✓</span></h2>
-    <div class="rating">
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star-half-alt"></i>
-      <span style="color:#999; margin-left:5px;">4.8 (1,234 ulasan)</span>
-    </div>
-    <p style="font-size:13px;">Agency TikTok Official Partner & Digital Solutions Provider</p>
+    <p style="font-size:13px; margin-bottom:8px;">Agency TikTok Official Partner & Digital Solutions Provider</p>
     <span class="official-tag"><i class="fas fa-crown"></i> Official Store</span>
     
     <!-- Menu Actions -->
@@ -1285,6 +1335,9 @@
       </button>
       <button class="action-btn" id="liveStreamBtn">
         <i class="fas fa-video"></i> Request Live Streaming
+      </button>
+      <button class="action-btn" id="rekberBtn">
+        <i class="fas fa-handshake"></i> Jasa Rekber
       </button>
       <button class="action-btn" id="daftarBtn">
         <i class="fas fa-file-signature"></i> Daftar Agency
@@ -1319,6 +1372,65 @@
     <button class="loadmore-btn" id="loadMoreBtn">
       <i class="fas fa-chevron-down"></i> Load More Produk
     </button>
+  </div>
+
+  <!-- ============ FAQ SECTION ============ -->
+  <div class="faq-section" id="faqSection">
+    <div class="faq-title">
+      <i class="fas fa-question-circle"></i>
+      Frequently Asked Questions
+      <i class="fas fa-question-circle"></i>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Bagaimana cara membeli produk?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Klik tombol "Beli Sekarang" pada produk yang diinginkan, pilih metode pembayaran, lalu selesaikan pembayaran melalui Midtrans. Setelah pembayaran berhasil, produk akan segera diproses.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Apakah produk langsung dikirim setelah bayar?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Ya, setelah pembayaran dikonfirmasi, produk akan dikirim dalam waktu maksimal 1x24 jam ke email atau WhatsApp yang terdaftar.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Apakah ada garansi jika produk tidak sesuai?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Kami memberikan garansi 7 hari setelah pembelian. Jika ada kendala, silakan hubungi admin kami melalui WhatsApp.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Metode pembayaran apa saja yang tersedia?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Kami menerima pembayaran melalui QRIS, Kartu Kredit, GoPay, Bank Transfer (BCA/Mandiri/BNI), Indomaret, DANA, OVO, dan ShopeePay.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Bagaimana cara menjadi agen R2 Management?
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Klik tombol "Daftar Agency" di atas, Anda akan diarahkan ke formulir pendaftaran. Setelah terdaftar, Anda bisa menikmati berbagai keuntungan menjadi mitra kami.
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1433,6 +1545,20 @@
 </div>
 
 <script>
+// ============ FAQ TOGGLE FUNCTION ============
+function toggleFaq(element) {
+  const answer = element.nextElementSibling;
+  const icon = element.querySelector('i:last-child');
+  
+  if (answer.classList.contains('active')) {
+    answer.classList.remove('active');
+    icon.style.transform = 'rotate(0deg)';
+  } else {
+    answer.classList.add('active');
+    icon.style.transform = 'rotate(180deg)';
+  }
+}
+
 // ============ BANNER SLIDER - SWIPEABLE ============
 let currentSlide = 0;
 const slides = document.querySelectorAll('.banner-slide');
@@ -1448,7 +1574,6 @@ let currentX = 0;
 let isDragging = false;
 let startTransform = 0;
 
-// Buat dots
 function createDots() {
   dotsContainer.innerHTML = '';
   for (let i = 0; i < totalSlides; i++) {
@@ -1460,7 +1585,6 @@ function createDots() {
   }
 }
 
-// Update dots active
 function updateDots() {
   const dots = document.querySelectorAll('.banner-dot');
   dots.forEach((dot, index) => {
@@ -1472,7 +1596,6 @@ function updateDots() {
   });
 }
 
-// Go to specific slide
 function goToSlide(index) {
   currentSlide = index;
   if (currentSlide >= totalSlides) currentSlide = 0;
@@ -1482,7 +1605,6 @@ function goToSlide(index) {
   resetAutoSlide();
 }
 
-// Next slide
 function nextSlide() {
   currentSlide++;
   if (currentSlide >= totalSlides) currentSlide = 0;
@@ -1491,7 +1613,6 @@ function nextSlide() {
   resetAutoSlide();
 }
 
-// Previous slide
 function prevSlide() {
   currentSlide--;
   if (currentSlide < 0) currentSlide = totalSlides - 1;
@@ -1500,9 +1621,8 @@ function prevSlide() {
   resetAutoSlide();
 }
 
-// Auto slide
 function startAutoSlide() {
-  autoSlideInterval = setInterval(nextSlide, 5000);
+  autoSlideInterval = setInterval(nextSlide, 8000);
 }
 
 function resetAutoSlide() {
@@ -1510,7 +1630,6 @@ function resetAutoSlide() {
   startAutoSlide();
 }
 
-// ============ DRAG / SWIPE GESTURE ============
 function handleDragStart(e) {
   isDragging = true;
   startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
@@ -1552,18 +1671,14 @@ function handleDragEnd(e) {
   startAutoSlide();
 }
 
-// Event listeners untuk drag/swipe
 bannerContainer.addEventListener('mousedown', handleDragStart);
 window.addEventListener('mousemove', handleDragMove);
 window.addEventListener('mouseup', handleDragEnd);
-
 bannerContainer.addEventListener('touchstart', handleDragStart);
 window.addEventListener('touchmove', handleDragMove);
 window.addEventListener('touchend', handleDragEnd);
-
 bannerContainer.style.cursor = 'grab';
 
-// Event listeners untuk panah
 arrowLeft.addEventListener('click', (e) => {
   e.stopPropagation();
   prevSlide();
@@ -1573,7 +1688,6 @@ arrowRight.addEventListener('click', (e) => {
   nextSlide();
 });
 
-// Inisialisasi slider
 createDots();
 startAutoSlide();
 
@@ -1603,20 +1717,6 @@ let isLoading = false;
 let registeredAgency = false;
 
 const TIKTOK_LINK = "https://www.tiktok.com/t/ZSmyMh7JC/";
-
-function showToast(message) {
-  const existingToast = document.querySelector('.toast');
-  if (existingToast) existingToast.remove();
-  
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
-}
 
 function formatRp(amount) {
   return "Rp" + amount.toLocaleString("id-ID");
@@ -1800,7 +1900,7 @@ function miminR2() {
 
 function requestStreamKey() {
   if (!registeredAgency) {
-    showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    alert("⚠️ Silakan daftar Agency terlebih dahulu!");
     daftarAgency();
     return;
   }
@@ -1812,7 +1912,7 @@ function requestStreamKey() {
 
 function requestLiveStreaming() {
   if (!registeredAgency) {
-    showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    alert("⚠️ Silakan daftar Agency terlebih dahulu!");
     daftarAgency();
     return;
   }
@@ -1822,9 +1922,13 @@ function requestLiveStreaming() {
   }
 }
 
+function jasaRekber() {
+  openWhatsApp("6282298466638", "Halo Admin, saya ingin menggunakan jasa rekber R2 Management. Mohon informasinya.");
+}
+
 function daftarAgency() {
   registeredAgency = true;
-  showToast(`✅ Berhasil terdaftar sebagai Agency R2 Management!`);
+  alert("✅ Berhasil terdaftar sebagai Agency R2 Management!");
   window.open(TIKTOK_LINK, '_blank');
 }
 
@@ -1837,7 +1941,7 @@ function navigateTo(section) {
   const sections = {
     home: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
     products: () => document.querySelector('.products-grid').scrollIntoView({ behavior: 'smooth' }),
-    about: () => showToast("R2 Management adalah agency TikTok official partner yang menyediakan berbagai solusi digital untuk kreator dan bisnis."),
+    faq: () => document.getElementById('faqSection').scrollIntoView({ behavior: 'smooth' }),
     contact: () => openWhatsApp("6282298466638", "Halo R2 Management, saya ingin bertanya tentang layanan Anda")
   };
   
@@ -1887,12 +1991,14 @@ document.getElementById("profileNameHome").addEventListener("click", goToHome);
 document.getElementById("miminBtn").addEventListener("click", miminR2);
 document.getElementById("streamKeyBtn").addEventListener("click", requestStreamKey);
 document.getElementById("liveStreamBtn").addEventListener("click", requestLiveStreaming);
+document.getElementById("rekberBtn").addEventListener("click", jasaRekber);
 document.getElementById("daftarBtn").addEventListener("click", daftarAgency);
 
 // Mobile Action Buttons
 document.getElementById("mobileMimin").addEventListener("click", () => { miminR2(); closeMobile(); });
 document.getElementById("mobileStreamKey").addEventListener("click", () => { requestStreamKey(); closeMobile(); });
 document.getElementById("mobileLiveStream").addEventListener("click", () => { requestLiveStreaming(); closeMobile(); });
+document.getElementById("mobileRekber").addEventListener("click", () => { jasaRekber(); closeMobile(); });
 document.getElementById("mobileDaftar").addEventListener("click", () => { daftarAgency(); closeMobile(); });
 
 document.querySelectorAll(".cat-item").forEach(item => {
@@ -1934,7 +2040,6 @@ document.getElementById('overlay').addEventListener('click', closeMobile);
 
 // Initialize
 renderProducts();
-showToast("💳 Selamat datang di R2 Management Official Store!");
 </script>
 </body>
 </html>
