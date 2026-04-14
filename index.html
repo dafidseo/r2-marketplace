@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R2 Management - Marketplace</title>
-  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-9r8kmRfMWRgupiIn"></script>
+  <!-- Midtrans Snap Sandbox -->
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); padding: 20px; }
     .container { max-width: 1200px; margin: 0 auto; }
     .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
     .profile { text-align: center; }
-    .profile img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+    .profile img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); }
     h1 { font-size: 24px; margin: 10px 0; }
     .badge { background: #1d9bf0; display: inline-block; width: 22px; height: 22px; border-radius: 50%; color: white; font-size: 12px; line-height: 22px; }
-    .links a { display: block; background: #f0f0f0; padding: 12px; border-radius: 10px; text-decoration: none; color: #333; margin-bottom: 10px; }
     .store-badge { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; }
     .search-bar { background: #f0f0f0; padding: 10px; border-radius: 30px; margin: 15px 0; display: flex; gap: 10px; }
     .search-bar input { flex: 1; border: none; background: none; outline: none; }
@@ -23,7 +23,7 @@
     .cat-item.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
     .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .product img { width: 100%; height: 180px; object-fit: cover; }
+    .product img { width: 100%; height: 180px; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); }
     .product-info { padding: 15px; }
     .product-name { font-weight: bold; margin-bottom: 5px; }
     .price { color: #667eea; font-weight: bold; font-size: 18px; }
@@ -34,12 +34,12 @@
     .close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; }
     .payment-methods { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 15px 0; }
     .payment-badge { background: #f0f0f0; padding: 5px 10px; border-radius: 20px; font-size: 11px; }
-    .btn-midtrans { background: linear-gradient(135deg, #1E3C72, #2A5298); width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; }
+    .btn-midtrans { background: linear-gradient(135deg, #1E3C72, #2A5298); width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
     .loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
     .loading .spinner { background: white; padding: 30px; border-radius: 20px; text-align: center; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .fa-spinner { animation: spin 1s linear infinite; }
     .footer { text-align: center; padding: 20px; color: white; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 8px; z-index: 3000; animation: slideIn 0.3s; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
   </style>
 </head>
 <body>
@@ -47,7 +47,7 @@
   <div class="card profile">
     <img src="https://placehold.co/100x100/667eea/white?text=R2" alt="Logo">
     <h1>R2 Management <span class="badge">✓</span></h1>
-    <p>Agency Tiktok Official Partner</p>
+    <p>Agency TikTok Official Partner</p>
   </div>
 
   <div class="card">
@@ -63,7 +63,7 @@
       <div class="cat-item" data-cat="les">Les Private</div>
       <div class="cat-item" data-cat="overlay">Overlay</div>
       <div class="cat-item" data-cat="followers">Followers</div>
-      <div class="cat-item" data-cat="tiktok">Tiktok</div>
+      <div class="cat-item" data-cat="tiktok">TikTok</div>
       <div class="cat-item" data-cat="bundle">Paket Hemat</div>
     </div>
   </div>
@@ -89,7 +89,7 @@
       <span class="payment-badge">DANA/OVO</span>
       <span class="payment-badge">ShopeePay</span>
     </div>
-    <button class="btn-midtrans" id="payBtn">Bayar Sekarang dengan Midtrans</button>
+    <button class="btn-midtrans" id="payBtn">💰 Bayar Sekarang dengan Midtrans</button>
     <p style="margin-top:15px; font-size:11px; color:#999;">🔒 Pembayaran Aman & Terenkripsi</p>
   </div>
 </div>
@@ -102,25 +102,29 @@
 </div>
 
 <script>
+// =============== DATA PRODUK ===============
 const products = [
-  { id:1, name:"Les Private TikTok", cat:"les", price:1000000, oldPrice:2000000, img:"https://placehold.co/400x300/667eea/white?text=Les" },
-  { id:2, name:"Overlay Livestreaming", cat:"overlay", price:30000, oldPrice:50000, img:"https://placehold.co/400x300/764ba2/white?text=Overlay" },
-  { id:3, name:"1.000 Followers TikTok", cat:"followers", price:100000, oldPrice:150000, img:"https://placehold.co/400x300/667eea/white?text=Followers" },
-  { id:4, name:"1.000 Followers IG", cat:"followers", price:50000, oldPrice:100000, img:"https://placehold.co/400x300/764ba2/white?text=Instagram" },
-  { id:5, name:"10.000 Followers TikTok", cat:"followers", price:700000, oldPrice:1000000, img:"https://placehold.co/400x300/667eea/white?text=10K" },
-  { id:6, name:"Akun Capcut Pro", cat:"bundle", price:200000, oldPrice:300000, img:"https://placehold.co/400x300/764ba2/white?text=Capcut" },
-  { id:7, name:"100.000 Views TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"https://placehold.co/400x300/667eea/white?text=Views" },
-  { id:8, name:"1.000 Like TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"https://placehold.co/400x300/764ba2/white?text=Like" }
+  { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, img: "https://placehold.co/400x300/667eea/white?text=Les" },
+  { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, img: "https://placehold.co/400x300/764ba2/white?text=Overlay" },
+  { id: 3, name: "1.000 Followers TikTok", cat: "followers", price: 100000, oldPrice: 150000, img: "https://placehold.co/400x300/667eea/white?text=Followers" },
+  { id: 4, name: "1.000 Followers IG", cat: "followers", price: 50000, oldPrice: 100000, img: "https://placehold.co/400x300/764ba2/white?text=Instagram" },
+  { id: 5, name: "10.000 Followers TikTok", cat: "followers", price: 700000, oldPrice: 1000000, img: "https://placehold.co/400x300/667eea/white?text=10K" },
+  { id: 6, name: "Akun Capcut Pro", cat: "bundle", price: 200000, oldPrice: 300000, img: "https://placehold.co/400x300/764ba2/white?text=Capcut" },
+  { id: 7, name: "100.000 Views TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, img: "https://placehold.co/400x300/667eea/white?text=Views" },
+  { id: 8, name: "1.000 Like TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, img: "https://placehold.co/400x300/764ba2/white?text=Like" }
 ];
 
+// =============== VARIABEL GLOBAL ===============
 let currentCat = "all";
 let currentSearch = "";
 let selectedProduct = null;
 
+// =============== FUNGSI FORMAT RUPIAH ===============
 function formatRp(amount) {
   return "Rp" + amount.toLocaleString("id-ID");
 }
 
+// =============== RENDER PRODUK ===============
 function renderProducts() {
   let filtered = products.filter(p => {
     if (currentCat !== "all" && p.cat !== currentCat) return false;
@@ -146,18 +150,27 @@ function renderProducts() {
   `).join("");
 }
 
+// =============== BUKA MODAL CHECKOUT ===============
 function openCheckout(id) {
-  selectedProduct = products.find(p => p.id === id);
-  document.getElementById("modalProductName").innerText = selectedProduct.name;
-  document.getElementById("modalPrice").innerHTML = formatRp(selectedProduct.price);
-  document.getElementById("modal").style.display = "flex";
+  console.log("Open checkout ID:", id);
+  const product = products.find(p => p.id === id);
+  if (product) {
+    selectedProduct = product;
+    console.log("Selected product:", selectedProduct);
+    document.getElementById("modalProductName").innerText = selectedProduct.name;
+    document.getElementById("modalPrice").innerHTML = formatRp(selectedProduct.price);
+    document.getElementById("modal").style.display = "flex";
+  } else {
+    alert("Produk tidak ditemukan!");
+  }
 }
 
+// =============== TUTUP MODAL ===============
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  selectedProduct = null;
 }
 
+// =============== LOADING ===============
 function showLoading() {
   document.getElementById("loading").style.display = "flex";
 }
@@ -166,18 +179,30 @@ function hideLoading() {
   document.getElementById("loading").style.display = "none";
 }
 
+// =============== GENERATE ORDER ID ===============
 function generateOrderId() {
   return "R2-" + Date.now() + "-" + Math.random().toString(36).substr(2, 6).toUpperCase();
 }
 
+// =============== PROSES PEMBAYARAN ===============
 async function processPayment() {
+  console.log("Process payment dipanggil - selectedProduct:", selectedProduct);
+  
+  // CEK 1: Apakah produk sudah dipilih?
   if (!selectedProduct) {
-    alert("Pilih produk dulu!");
+    alert("❌ Pilih produk dulu!");
     return;
   }
   
+  // CEK 2: Apakah harga valid?
+  if (!selectedProduct.price) {
+    alert("❌ Error: Harga produk tidak valid!");
+    return;
+  }
+  
+  // CEK 3: Apakah Midtrans Snap sudah siap?
   if (typeof snap === "undefined") {
-    alert("Midtrans sedang dimuat. Refresh halaman!");
+    alert("❌ Midtrans sedang dimuat. Refresh halaman!");
     return;
   }
   
@@ -186,6 +211,8 @@ async function processPayment() {
   
   const orderId = generateOrderId();
   const amount = selectedProduct.price;
+  
+  console.log("Memproses:", selectedProduct.name, "| Harga:", formatRp(amount), "| Order ID:", orderId);
   
   const data = {
     transaction_details: {
@@ -206,6 +233,7 @@ async function processPayment() {
   };
   
   try {
+    console.log("Mengirim request ke function midtrans...");
     const response = await fetch("/.netlify/functions/midtrans", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -215,26 +243,42 @@ async function processPayment() {
     const result = await response.json();
     hideLoading();
     
+    console.log("Response dari Midtrans:", result);
+    
     if (result.token) {
+      console.log("✅ Token berhasil didapatkan, membuka popup Midtrans...");
+      // INI YANG MEMUNCULKAN POPUP MIDTRANS!
       snap.pay(result.token, {
         onSuccess: function(res) {
+          console.log("Payment Success:", res);
           alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRp(amount));
-          window.open("https://wa.me/6282298466638?text=Halo%20Admin,%20saya%20sudah%20bayar%20" + selectedProduct.name, "_blank");
+          window.open("https://wa.me/6282298466638?text=Halo%20Admin,%20saya%20sudah%20bayar%20" + encodeURIComponent(selectedProduct.name), "_blank");
+          selectedProduct = null;
+        },
+        onPending: function(res) {
+          console.log("Payment Pending:", res);
+          alert("⏳ Pembayaran Pending!\n\nSilakan selesaikan pembayaran Anda.");
         },
         onError: function(res) {
-          alert("❌ Pembayaran gagal! Silakan coba lagi.");
+          console.error("Payment Error:", res);
+          alert("❌ Pembayaran gagal!\n\n" + (res.status_message || "Silakan coba lagi"));
+        },
+        onClose: function() {
+          console.log("Payment popup ditutup");
         }
       });
     } else {
-      alert("Gagal: " + (result.error || "Unknown error"));
+      console.error("Gagal mendapatkan token:", result);
+      alert("❌ Gagal memproses pembayaran!\n\n" + (result.error || result.status_message || "Unknown error"));
     }
   } catch (err) {
     hideLoading();
-    alert("Error: " + err.message);
+    console.error("Error:", err);
+    alert("❌ Error: " + err.message + "\n\nCek koneksi internet dan coba lagi.");
   }
 }
 
-// Event listeners
+// =============== EVENT LISTENERS ===============
 document.getElementById("payBtn").addEventListener("click", processPayment);
 document.querySelector(".close").addEventListener("click", closeModal);
 window.onclick = (e) => { if (e.target === document.getElementById("modal")) closeModal(); };
@@ -253,8 +297,17 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
   renderProducts();
 });
 
+// =============== INIT ===============
 renderProducts();
-window.openCheckout = openCheckout;
+
+// Cek apakah Snap Midtrans sudah siap
+setTimeout(function() {
+  if (typeof snap !== 'undefined') {
+    console.log("✅ Snap Midtrans siap digunakan!");
+  } else {
+    console.log("❌ Snap Midtrans belum siap - cek client key!");
+  }
+}, 2000);
 </script>
 </body>
 </html>
