@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R2 Management - Marketplace</title>
+  <!-- CLIENT KEY YANG BENAR - gunakan dari dashboard Midtrans Anda -->
   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-lMvL5ZuB97rsqJpE"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,10 +12,9 @@
     .container { max-width: 1200px; margin: 0 auto; }
     .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
     .profile { text-align: center; }
-    .profile img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; margin: 0 auto; line-height: 100px; font-size: 40px; color: white; }
+    .profile-img { width: 100px; height: 100px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 40px; color: white; }
     h1 { font-size: 24px; margin: 10px 0; }
     .badge { background: #1d9bf0; display: inline-block; width: 22px; height: 22px; border-radius: 50%; color: white; font-size: 12px; line-height: 22px; }
-    .links a { display: block; background: #f0f0f0; padding: 12px; border-radius: 10px; text-decoration: none; color: #333; margin-bottom: 10px; }
     .store-badge { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; }
     .search-bar { background: #f0f0f0; padding: 10px; border-radius: 30px; margin: 15px 0; display: flex; gap: 10px; }
     .search-bar input { flex: 1; border: none; background: none; outline: none; }
@@ -23,7 +23,7 @@
     .cat-item.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
     .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .product img { width: 100%; height: 180px; object-fit: cover; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 50px; color: white; }
+    .product-img { height: 180px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 50px; color: white; }
     .product-info { padding: 15px; }
     .product-name { font-weight: bold; margin-bottom: 5px; }
     .price { color: #667eea; font-weight: bold; font-size: 18px; }
@@ -34,20 +34,19 @@
     .close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; }
     .payment-methods { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 15px 0; }
     .payment-badge { background: #f0f0f0; padding: 5px 10px; border-radius: 20px; font-size: 11px; }
-    .btn-midtrans { background: linear-gradient(135deg, #1E3C72, #2A5298); width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; }
+    .btn-midtrans { background: linear-gradient(135deg, #1E3C72, #2A5298); width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
     .loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
     .loading .spinner { background: white; padding: 30px; border-radius: 20px; text-align: center; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .fa-spinner { animation: spin 1s linear infinite; }
     .footer { text-align: center; padding: 20px; color: white; }
     .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 12px 20px; border-radius: 8px; z-index: 3000; animation: slideIn 0.3s; }
     @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .debug-info { background: #f0f0f0; padding: 10px; border-radius: 8px; margin-top: 20px; font-size: 11px; word-break: break-all; display: none; }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="card profile">
-    <div class="profile-img" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 40px; color: white;">R2</div>
+    <div class="profile-img">R2</div>
     <h1>R2 Management <span class="badge">✓</span></h1>
     <p>Agency TikTok Official Partner</p>
   </div>
@@ -105,14 +104,14 @@
 
 <script>
 const products = [
-  { id:1, name:"Les Private TikTok", cat:"les", price:1000000, oldPrice:2000000, img:"" },
-  { id:2, name:"Overlay Livestreaming", cat:"overlay", price:30000, oldPrice:50000, img:"" },
-  { id:3, name:"1.000 Followers TikTok", cat:"followers", price:100000, oldPrice:150000, img:"" },
-  { id:4, name:"1.000 Followers IG", cat:"followers", price:50000, oldPrice:100000, img:"" },
-  { id:5, name:"10.000 Followers TikTok", cat:"followers", price:700000, oldPrice:1000000, img:"" },
-  { id:6, name:"Akun Capcut Pro", cat:"bundle", price:200000, oldPrice:300000, img:"" },
-  { id:7, name:"100.000 Views TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"" },
-  { id:8, name:"1.000 Like TikTok", cat:"tiktok", price:50000, oldPrice:100000, img:"" }
+  { id:1, name:"Les Private TikTok", cat:"les", price:1000000, oldPrice:2000000 },
+  { id:2, name:"Overlay Livestreaming", cat:"overlay", price:30000, oldPrice:50000 },
+  { id:3, name:"1.000 Followers TikTok", cat:"followers", price:100000, oldPrice:150000 },
+  { id:4, name:"1.000 Followers IG", cat:"followers", price:50000, oldPrice:100000 },
+  { id:5, name:"10.000 Followers TikTok", cat:"followers", price:700000, oldPrice:1000000 },
+  { id:6, name:"Akun Capcut Pro", cat:"bundle", price:200000, oldPrice:300000 },
+  { id:7, name:"100.000 Views TikTok", cat:"tiktok", price:50000, oldPrice:100000 },
+  { id:8, name:"1.000 Like TikTok", cat:"tiktok", price:50000, oldPrice:100000 }
 ];
 
 let currentCat = "all";
@@ -146,7 +145,7 @@ function renderProducts() {
   
   container.innerHTML = filtered.map(p => `
     <div class="product">
-      <div style="height:180px; background:linear-gradient(135deg, #667eea, #764ba2); display:flex; align-items:center; justify-content:center; font-size:50px; color:white;">🎁</div>
+      <div class="product-img">🎁</div>
       <div class="product-info">
         <div class="product-name">${p.name}</div>
         <div><span class="price">${formatRp(p.price)}</span> <span class="old-price">${formatRp(p.oldPrice)}</span></div>
@@ -187,7 +186,7 @@ async function processPayment() {
   }
   
   if (typeof snap === "undefined") {
-    alert("Midtrans sedang dimuat. Refresh halaman!");
+    alert("❌ Midtrans Snap tidak terload! Coba refresh halaman.");
     return;
   }
   
@@ -215,8 +214,10 @@ async function processPayment() {
     }
   };
   
+  console.log("Mengirim data ke function:", data);
+  
   try {
-    // Panggil Netlify Function dengan nama yang benar: create-midtrans-token
+    // Panggil Netlify Function
     const response = await fetch("/.netlify/functions/create-midtrans-token", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -224,18 +225,21 @@ async function processPayment() {
     });
     
     const result = await response.json();
+    console.log("Response dari function:", result);
     hideLoading();
     
     if (result.token) {
-      // POPUP MIDTRANS LANGSUNG MUNCUL!
+      // POPUP MIDTRANS AKAN MUNCUL DISINI!
+      showToast("⏳ Membuka popup pembayaran Midtrans...");
+      
       snap.pay(result.token, {
         onSuccess: function(res) {
           showToast("✅ Pembayaran Berhasil!");
-          alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRp(amount) + "\n\nOrder ID: " + res.order_id);
+          alert("✅ Pembayaran Berhasil!\n\n" + selectedProduct.name + "\n" + formatRp(amount));
           window.open("https://wa.me/6282298466638?text=Halo%20Admin,%20saya%20sudah%20bayar%20" + encodeURIComponent(selectedProduct.name), "_blank");
         },
         onPending: function(res) {
-          alert("⏳ Pembayaran Pending!\n\nSilakan selesaikan pembayaran Anda.\nOrder ID: " + res.order_id);
+          alert("⏳ Pembayaran Pending!\n\nSilakan selesaikan pembayaran Anda.");
         },
         onError: function(res) {
           alert("❌ Pembayaran gagal!\n\n" + (res.status_message || "Silakan coba lagi"));
@@ -245,12 +249,12 @@ async function processPayment() {
         }
       });
     } else {
-      alert("Gagal: " + (result.error || result.status_message || "Unknown error"));
+      alert("Gagal membuat token: " + JSON.stringify(result));
     }
   } catch (err) {
     hideLoading();
     console.error("Error:", err);
-    alert("Error: " + err.message + "\n\nPastikan Netlify Function sudah terdeploy dengan benar!");
+    alert("Error: " + err.message + "\n\nCek console untuk detail error.");
   }
 }
 
@@ -277,6 +281,13 @@ renderProducts();
 window.openCheckout = openCheckout;
 
 showToast("💳 Selamat datang! Klik Beli untuk pembayaran Midtrans");
+
+// Cek apakah snap sudah terload
+if (typeof snap !== "undefined") {
+  console.log("✅ Snap Midtrans siap digunakan");
+} else {
+  console.log("❌ Snap Midtrans belum terload");
+}
 </script>
 </body>
 </html>
