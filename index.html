@@ -483,7 +483,7 @@
 
     .product-image {
       height: 160px;
-      background: #f0f0f0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -507,6 +507,7 @@
       border-radius: 20px;
       font-size: 10px;
       font-weight: bold;
+      z-index: 2;
     }
 
     .product-info {
@@ -1498,10 +1499,10 @@
         <i class="fas fa-user-tie"></i> Mimin R2 Agency
       </button>
       <button class="action-btn" id="streamKeyBtn">
-        <i class="fas fa-key"></i> Request Stream Key
+        <i class="fas fa-key"></i> Request Fitur Stream Key
       </button>
       <button class="action-btn" id="liveStreamBtn">
-        <i class="fas fa-video"></i> Request Live Streaming
+        <i class="fas fa-video"></i> Request Fitur Live Streaming
       </button>
       <button class="action-btn" id="rekberBtn">
         <i class="fas fa-handshake"></i> Jasa Rekber
@@ -1891,22 +1892,22 @@ arrowRight.addEventListener('click', (e) => {
 createDots();
 startAutoSlide();
 
-// ============ DATA PRODUK ============
+// ============ DATA PRODUK DENGAN FALLBACK GAMBAR OTOMATIS ============
 const allProducts = [
-  { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, image: "media/les.jpg", discount: "50%", desc: "Les private TikTok bersama mentor berpengalaman. Materi lengkap dari dasar hingga mahir. Cocok untuk pemula yang ingin menjadi konten kreator profesional." },
-  { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, image: "product2.jpg", discount: "40%", desc: "Paket overlay livestreaming profesional dengan desain keren. Termasuk alert, panel, dan banner. Compatible dengan OBS dan Streamlabs." },
-  { id: 3, name: "1.000 Followers TikTok", cat: "followers", price: 100000, oldPrice: 150000, image: "product3.jpg", discount: "33%", desc: "Jasa增加 followers TikTok real dan aktif. Meningkatkan kredibilitas akun Anda. Proses cepat dan aman." },
-  { id: 4, name: "1.000 Followers IG", cat: "followers", price: 50000, oldPrice: 100000, image: "product4.jpg", discount: "50%", desc: "Followers Instagram berkualitas tinggi. Akun real dan aktif. Meningkatkan engagement akun Instagram Anda." },
-  { id: 5, name: "10.000 Followers TikTok", cat: "followers", price: 700000, oldPrice: 1000000, image: "product5.jpg", discount: "30%", desc: "Paket besar 10.000 followers TikTok. Cocok untuk brand atau bisnis yang ingin meningkatkan kredibilitas." },
-  { id: 6, name: "Akun Capcut Pro", cat: "bundle", price: 200000, oldPrice: 300000, image: "product6.jpg", discount: "33%", desc: "Akun Capcut Pro premium dengan fitur lengkap. Bisa digunakan untuk edit video profesional tanpa watermark." },
-  { id: 7, name: "100.000 Views TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "product7.jpg", discount: "50%", desc: "Tingkatkan views video TikTok Anda hingga 100.000 views. Meningkatkan exposure dan viral potensial." },
-  { id: 8, name: "1.000 Like TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "product8.jpg", discount: "50%", desc: "Like TikTok real dan aktif. Meningkatkan engagement dan membuat video lebih menarik." },
-  { id: 9, name: "Streaming Studio Pro", cat: "overlay", price: 150000, oldPrice: 250000, image: "product9.jpg", discount: "40%", desc: "Paket lengkap streaming studio pro. Termasuk overlay, stinger transition, dan alert sound efek." },
-  { id: 10, name: "5.000 Followers TikTok", cat: "followers", price: 350000, oldPrice: 500000, image: "product10.jpg", discount: "30%", desc: "5.000 followers TikTok berkualitas. Meningkatkan kredibilitas akun secara signifikan." },
-  { id: 11, name: "Green Screen Effect", cat: "overlay", price: 25000, oldPrice: 50000, image: "product11.jpg", discount: "50%", desc: "Background green screen efek keren untuk streaming. 50+ template background." },
-  { id: 12, name: "Live Studio Bundle", cat: "bundle", price: 500000, oldPrice: 800000, image: "product12.jpg", discount: "37%", desc: "Paket bundle lengkap untuk live streaming. Termasuk overlay, followers, dan views." },
-  { id: 13, name: "Donation Alert", cat: "overlay", price: 45000, oldPrice: 80000, image: "product13.jpg", discount: "44%", desc: "Alert donation keren untuk livestreaming. Desain custom sesuai request." },
-  { id: 14, name: "Subscriber Badges", cat: "overlay", price: 35000, oldPrice: 60000, image: "product14.jpg", discount: "42%", desc: "Badge subscriber eksklusif untuk member setia channel Anda." }
+  { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, image: "media/les.jpeg", discount: "50%", desc: "Les private TikTok bersama mentor berpengalaman. Materi lengkap dari dasar hingga mahir. Cocok untuk pemula yang ingin menjadi konten kreator profesional. Sertifikat kelulusan dan bimbingan langsung." },
+  { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, image: "media/overlay.jpeg", discount: "40%", desc: "Paket overlay livestreaming profesional dengan desain keren. Termasuk alert, panel, dan banner. Compatible dengan OBS dan Streamlabs. Desain bisa custom sesuai request." },
+  { id: 3, name: "1.000 Followers TikTok", cat: "followers", price: 100000, oldPrice: 150000, image: "media/tiktok.png", discount: "33%", desc: "Jasa penambah followers TikTok real dan aktif. Meningkatkan kredibilitas akun Anda. Proses cepat dan aman. Followers bertahap sesuai algoritma." },
+  { id: 4, name: "1.000 Followers IG", cat: "followers", price: 50000, oldPrice: 100000, image: "media/instagram.jpg", discount: "50%", desc: "Followers Instagram berkualitas tinggi. Akun real dan aktif. Meningkatkan engagement akun Instagram Anda. Garansi tidak akan berkurang." },
+  { id: 5, name: "10.000 Followers TikTok", cat: "followers", price: 700000, oldPrice: 1000000, image: "media/tiktok.png", discount: "30%", desc: "Paket besar 10.000 followers TikTok. Cocok untuk brand atau bisnis yang ingin meningkatkan kredibilitas dan kepercayaan pelanggan." },
+  { id: 6, name: "Akun Capcut Pro", cat: "bundle", price: 200000, oldPrice: 300000, image: "media/capcut.png", discount: "33%", desc: "Akun Capcut Pro premium dengan fitur lengkap. Bisa digunakan untuk edit video profesional tanpa watermark. Akses semua template premium." },
+  { id: 7, name: "100.000 Views TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "media/tiktok.png", discount: "50%", desc: "Tingkatkan views video TikTok Anda hingga 100.000 views. Meningkatkan exposure dan viral potensial. Proses cepat dalam 1x24 jam." },
+  { id: 8, name: "1.000 Like TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "media/tiktok.png", discount: "50%", desc: "Like TikTok real dan aktif. Meningkatkan engagement dan membuat video lebih menarik. Like dari akun aktif Indonesia." },
+  { id: 9, name: "Streaming Studio Pro", cat: "overlay", price: 150000, oldPrice: 250000, image: "product9.jpg", discount: "40%", desc: "Paket lengkap streaming studio pro. Termasuk overlay, stinger transition, dan alert sound efek. Desain eksklusif untuk channel Anda." },
+  { id: 10, name: "5.000 Followers TikTok", cat: "followers", price: 350000, oldPrice: 500000, image: "product10.jpg", discount: "30%", desc: "5.000 followers TikTok berkualitas. Meningkatkan kredibilitas akun secara signifikan. Proses aman dan cepat." },
+  { id: 11, name: "Green Screen Effect", cat: "overlay", price: 25000, oldPrice: 50000, image: "product11.jpg", discount: "50%", desc: "Background green screen efek keren untuk streaming. 50+ template background dengan kualitas HD." },
+  { id: 12, name: "Live Studio Bundle", cat: "bundle", price: 500000, oldPrice: 800000, image: "product12.jpg", discount: "37%", desc: "Paket bundle lengkap untuk live streaming. Termasuk overlay, followers, views, dan peralatan streaming lainnya." },
+  { id: 13, name: "Donation Alert", cat: "overlay", price: 45000, oldPrice: 80000, image: "product13.jpg", discount: "44%", desc: "Alert donation keren untuk livestreaming. Desain custom sesuai request. Support semua platform streaming." },
+  { id: 14, name: "Subscriber Badges", cat: "overlay", price: 35000, oldPrice: 60000, image: "product14.jpg", discount: "42%", desc: "Badge subscriber eksklusif untuk member setia channel Anda. Desain profesional dan menarik." }
 ];
 
 let currentCat = "all";
@@ -1931,23 +1932,36 @@ function getFilteredProducts() {
   return filtered;
 }
 
+// Fungsi untuk mencoba berbagai ekstensi gambar
+function getProductImageSrc(product) {
+  // Coba dengan ekstensi .jpg dulu, jika gagal akan coba .png
+  return product.image;
+}
+
 // ============ DETAIL PRODUK MODAL ============
 function showProductDetail(productId) {
   const product = allProducts.find(p => p.id === productId);
   if (!product) return;
   
-  document.getElementById('detailProductImage').src = product.image;
-  document.getElementById('detailProductImage').onerror = function() {
-    this.src = 'https://placehold.co/400x300/667eea/white?text=' + product.name.replace(/ /g, '+');
+  const detailImg = document.getElementById('detailProductImage');
+  detailImg.src = product.image;
+  detailImg.onerror = function() {
+    // Coba ganti ekstensi ke .png
+    let newSrc = product.image.replace(/\.jpg$|\.jpeg$/, '.png');
+    if (newSrc !== product.image) {
+      this.src = newSrc;
+    } else {
+      this.src = `https://placehold.co/400x300/667eea/white?text=${encodeURIComponent(product.name)}`;
+    }
   };
+  
   document.getElementById('detailProductName').innerText = product.name;
   document.getElementById('detailProductCat').innerHTML = '<i class="fas fa-tag"></i> ' + product.cat.toUpperCase();
   document.getElementById('detailProductPrice').innerHTML = formatRp(product.price);
   document.getElementById('detailProductOldPrice').innerHTML = formatRp(product.oldPrice);
   document.getElementById('detailProductDiscount').innerHTML = '-' + product.discount;
-  document.getElementById('detailProductDesc').innerHTML = product.desc || 'Produk digital berkualitas tinggi untuk kebutuhan live streaming dan social media Anda. Proses cepat dan aman.';
+  document.getElementById('detailProductDesc').innerHTML = product.desc;
   
-  // Set buy button to directly open payment modal with this product
   const buyBtn = document.getElementById('detailBuyBtn');
   buyBtn.onclick = function() {
     closeProductDetail();
@@ -1965,7 +1979,6 @@ function closeProductDetail() {
   document.body.style.overflow = '';
 }
 
-// Close modal when clicking outside
 document.getElementById('productDetailModal').addEventListener('click', function(e) {
   if (e.target === this) {
     closeProductDetail();
@@ -1979,13 +1992,7 @@ function renderProducts() {
   const loadMoreBtn = document.getElementById("loadMoreBtn");
   
   if (visible.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <i class="fas fa-search"></i>
-        <h3>Produk tidak ditemukan</h3>
-        <p>Coba kata kunci lain</p>
-      </div>
-    `;
+    container.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><h3>Produk tidak ditemukan</h3><p>Coba kata kunci lain</p></div>`;
     loadMoreBtn.style.display = "none";
     return;
   }
@@ -1995,7 +2002,9 @@ function renderProducts() {
   container.innerHTML = visible.map(p => `
     <div class="product-card" onclick="showProductDetail(${p.id})">
       <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300/667eea/white?text=${p.name.replace(/ /g, '+')}'">
+        <img src="${p.image}" alt="${p.name}" 
+             onerror="this.onerror=null; this.src='${p.image.replace(/\.jpg$|\.jpeg$/, '.png')}'; 
+                      this.onerror=function(){ this.src='https://placehold.co/400x300/667eea/white?text=${encodeURIComponent(p.name)}' }">
         <div class="discount-badge">-${p.discount}</div>
       </div>
       <div class="product-info">
@@ -2173,7 +2182,7 @@ function daftarAgency() {
   window.open(TIKTOK_LINK, '_blank');
 }
 
-// Navigate to Home (logo & profile click)
+// Navigate to Home
 function goToHome() {
   window.location.href = '/';
 }
