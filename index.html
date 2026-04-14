@@ -91,6 +91,7 @@
       align-items: center;
       gap: 6px;
       font-size: 14px;
+      cursor: pointer;
     }
 
     .nav-link i {
@@ -106,11 +107,12 @@
       font-size: 24px;
       cursor: pointer;
       color: #333;
+      background: none;
+      border: none;
     }
 
     /* Mobile Menu */
     .mobile-menu {
-      display: none;
       position: fixed;
       top: 0;
       right: -280px;
@@ -121,6 +123,7 @@
       z-index: 1000;
       padding: 20px;
       transition: right 0.3s ease;
+      overflow-y: auto;
     }
 
     .mobile-menu.active {
@@ -139,6 +142,8 @@
     .mobile-close {
       font-size: 24px;
       cursor: pointer;
+      background: none;
+      border: none;
     }
 
     .mobile-link {
@@ -148,6 +153,7 @@
       color: #333;
       border-bottom: 1px solid #eee;
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .mobile-link:hover {
@@ -294,6 +300,41 @@
       border-radius: 30px;
       font-size: 11px;
       font-weight: bold;
+    }
+
+    /* Menu Actions (Mimin, Request, Daftar) */
+    .action-menu {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+    }
+
+    .action-btn i {
+      font-size: 14px;
     }
 
     /* Filter Card */
@@ -669,6 +710,32 @@
       to { transform: rotate(360deg); }
     }
 
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      z-index: 1300;
+      animation: toastIn 0.3s ease;
+      white-space: nowrap;
+    }
+
+    @keyframes toastIn {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+      to {
+        bottom: 80px;
+        opacity: 1;
+      }
+    }
+
     /* ============ FOOTER ============ */
     .footer {
       background: #1a1a2e;
@@ -829,7 +896,6 @@
     }
 
     /* ============ RESPONSIVE ============ */
-    /* Tablet (768px - 1024px) - 3 kolom */
     @media (max-width: 1024px) and (min-width: 769px) {
       .products-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -837,7 +903,6 @@
       }
     }
 
-    /* HP (max 768px) - 2 KOLOM */
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
@@ -877,7 +942,6 @@
         font-size: 24px;
       }
       
-      /* FOOTER DI HP - 2 BAGIAN (Link Cepat + Kontak Kami) */
       .footer-content {
         grid-template-columns: repeat(2, 1fr);
         gap: 25px;
@@ -896,15 +960,6 @@
       
       .footer-section:first-child .social-links {
         justify-content: center;
-      }
-      
-      .footer-section:nth-child(2) h3::after,
-      .footer-section:nth-child(3) h3::after {
-        left: 0;
-      }
-      
-      .footer-section .contact-info {
-        justify-content: flex-start;
       }
       
       .footer-section:last-child {
@@ -951,13 +1006,12 @@
         font-size: 11px;
       }
       
-      .loadmore-btn {
-        padding: 10px 25px;
-        font-size: 13px;
+      .action-btn {
+        padding: 8px 16px;
+        font-size: 12px;
       }
     }
 
-    /* HP kecil (max 480px) - tetap 2 kolom */
     @media (max-width: 480px) {
       .products-grid {
         gap: 10px;
@@ -997,9 +1051,13 @@
         padding: 2px 6px;
       }
       
-      .footer-content {
-        gap: 20px;
-        padding: 25px 12px 15px;
+      .action-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+      
+      .action-btn i {
+        font-size: 12px;
       }
     }
   </style>
@@ -1018,23 +1076,23 @@
       </div>
       
       <div class="nav-menu">
-        <a href="#" class="nav-link active" data-nav="home">
+        <a class="nav-link active" data-nav="home">
           <i class="fas fa-home"></i> Home
         </a>
-        <a href="#" class="nav-link" data-nav="products">
+        <a class="nav-link" data-nav="products">
           <i class="fas fa-box"></i> Produk
         </a>
-        <a href="#" class="nav-link" data-nav="about">
+        <a class="nav-link" data-nav="about">
           <i class="fas fa-info-circle"></i> Tentang
         </a>
-        <a href="#" class="nav-link" data-nav="contact">
+        <a class="nav-link" data-nav="contact">
           <i class="fas fa-envelope"></i> Kontak
         </a>
       </div>
       
-      <div class="mobile-toggle" id="mobileToggle">
+      <button class="mobile-toggle" id="mobileToggle">
         <i class="fas fa-bars"></i>
-      </div>
+      </button>
     </div>
   </div>
 </nav>
@@ -1049,22 +1107,33 @@
       </div>
       <div class="logo-text">R2 <span>Management</span></div>
     </div>
-    <div class="mobile-close" id="mobileClose">
+    <button class="mobile-close" id="mobileClose">
       <i class="fas fa-times"></i>
-    </div>
+    </button>
   </div>
-  <a href="#" class="mobile-link" data-nav="home">
+  <a class="mobile-link" data-nav="home">
     <i class="fas fa-home"></i> Home
   </a>
-  <a href="#" class="mobile-link" data-nav="products">
+  <a class="mobile-link" data-nav="products">
     <i class="fas fa-box"></i> Produk
   </a>
-  <a href="#" class="mobile-link" data-nav="about">
+  <a class="mobile-link" data-nav="about">
     <i class="fas fa-info-circle"></i> Tentang
   </a>
-  <a href="#" class="mobile-link" data-nav="contact">
+  <a class="mobile-link" data-nav="contact">
     <i class="fas fa-envelope"></i> Kontak
   </a>
+  <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee;">
+    <a class="mobile-link" id="mobileMimin">
+      <i class="fas fa-user-tie"></i> Mimin R2 Agency
+    </a>
+    <a class="mobile-link" id="mobileStreamKey">
+      <i class="fas fa-key"></i> Request Stream Key
+    </a>
+    <a class="mobile-link" id="mobileDaftar">
+      <i class="fas fa-file-signature"></i> Daftar Agency
+    </a>
+  </div>
 </div>
 
 <!-- ============ MAIN CONTENT ============ -->
@@ -1092,6 +1161,19 @@
     </div>
     <p style="font-size:13px;">Agency TikTok Official Partner & Digital Solutions Provider</p>
     <span class="official-tag"><i class="fas fa-crown"></i> Official Store</span>
+    
+    <!-- Menu Actions (Mimin, Request, Daftar) -->
+    <div class="action-menu">
+      <button class="action-btn" id="miminBtn">
+        <i class="fas fa-user-tie"></i> Mimin R2 Agency
+      </button>
+      <button class="action-btn" id="streamKeyBtn">
+        <i class="fas fa-key"></i> Request Stream Key
+      </button>
+      <button class="action-btn" id="daftarBtn">
+        <i class="fas fa-file-signature"></i> Daftar Agency
+      </button>
+    </div>
   </div>
 
   <!-- Filter Card -->
@@ -1235,7 +1317,7 @@
 </div>
 
 <script>
-// Data Produk (14 produk untuk test load more)
+// Data Produk
 const allProducts = [
   { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, icon: "fab fa-tiktok", discount: "50%" },
   { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, icon: "fas fa-layer-group", discount: "40%" },
@@ -1256,8 +1338,23 @@ const allProducts = [
 let currentCat = "all";
 let currentSearch = "";
 let selectedProduct = null;
-let currentDisplay = 8; // Mulai tampilkan 8 produk
+let currentDisplay = 8;
 let isLoading = false;
+let registeredAgency = null;
+
+function showToast(message) {
+  const existingToast = document.querySelector('.toast');
+  if (existingToast) existingToast.remove();
+  
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
 
 function formatRp(amount) {
   return "Rp" + amount.toLocaleString("id-ID");
@@ -1312,7 +1409,6 @@ function renderProducts() {
     </div>
   `).join("");
   
-  // Update tombol load more
   if (currentDisplay >= filtered.length) {
     loadMoreBtn.innerHTML = '<i class="fas fa-check"></i> Semua Produk Ditampilkan';
     loadMoreBtn.disabled = true;
@@ -1431,13 +1527,49 @@ async function processPayment() {
   }
 }
 
+// Action Menu Functions
+function openWhatsApp(number, text) {
+  window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function miminR2() {
+  openWhatsApp("6282298466638", "Halo Mimin R2 Agency, saya ingin bertanya tentang layanan R2 Management");
+}
+
+function requestStreamKey() {
+  if (!registeredAgency) {
+    showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    return;
+  }
+  const request = prompt("Tulis request fitur Stream Key yang Anda inginkan:");
+  if (request && request.trim()) {
+    openWhatsApp("6282298466638", `Request Stream Key dari Agency ${registeredAgency.name}: ${request}`);
+  }
+}
+
+function daftarAgency() {
+  const nama = prompt("Masukkan Nama Agency:");
+  if (!nama || !nama.trim()) {
+    showToast("❌ Nama agency tidak boleh kosong!");
+    return;
+  }
+  const email = prompt("Masukkan Email Agency:");
+  if (!email || !email.includes('@')) {
+    showToast("❌ Email tidak valid!");
+    return;
+  }
+  registeredAgency = { name: nama, email: email };
+  showToast(`✅ Agency "${nama}" berhasil terdaftar!`);
+  openWhatsApp("6282298466638", `Pendaftaran Agency Baru:\nNama: ${nama}\nEmail: ${email}\n\nSaya ingin mendaftar sebagai agency R2 Management`);
+}
+
 // Navigation
 function navigateTo(section) {
   const sections = {
     home: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
     products: () => document.querySelector('.products-grid').scrollIntoView({ behavior: 'smooth' }),
-    about: () => alert("R2 Management adalah agency TikTok official partner yang menyediakan berbagai solusi digital untuk kreator dan bisnis."),
-    contact: () => window.open("https://wa.me/6282298466638", "_blank")
+    about: () => showToast("R2 Management adalah agency TikTok official partner yang menyediakan berbagai solusi digital untuk kreator dan bisnis."),
+    contact: () => openWhatsApp("6282298466638", "Halo R2 Management, saya ingin bertanya tentang layanan Anda")
   };
   
   if (sections[section]) sections[section]();
@@ -1447,11 +1579,13 @@ function navigateTo(section) {
 function openMobile() {
   document.getElementById('mobileMenu').classList.add('active');
   document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeMobile() {
   document.getElementById('mobileMenu').classList.remove('active');
   document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 // Scroll to top
@@ -1474,6 +1608,16 @@ document.querySelector(".close").addEventListener("click", closeModal);
 window.onclick = (e) => { if (e.target === document.getElementById("modal")) closeModal(); };
 document.getElementById("loadMoreBtn").addEventListener("click", loadMoreProducts);
 
+// Action Buttons
+document.getElementById("miminBtn").addEventListener("click", miminR2);
+document.getElementById("streamKeyBtn").addEventListener("click", requestStreamKey);
+document.getElementById("daftarBtn").addEventListener("click", daftarAgency);
+
+// Mobile Action Buttons
+document.getElementById("mobileMimin").addEventListener("click", () => { miminR2(); closeMobile(); });
+document.getElementById("mobileStreamKey").addEventListener("click", () => { requestStreamKey(); closeMobile(); });
+document.getElementById("mobileDaftar").addEventListener("click", () => { daftarAgency(); closeMobile(); });
+
 document.querySelectorAll(".cat-item").forEach(item => {
   item.addEventListener("click", function() {
     document.querySelectorAll(".cat-item").forEach(c => c.classList.remove("active"));
@@ -1489,7 +1633,15 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 });
 
 // Navigation Events
-document.querySelectorAll('.nav-link, .mobile-link').forEach(link => {
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const nav = link.dataset.nav;
+    navigateTo(nav);
+  });
+});
+
+document.querySelectorAll('.mobile-link[data-nav]').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const nav = link.dataset.nav;
@@ -1498,12 +1650,14 @@ document.querySelectorAll('.nav-link, .mobile-link').forEach(link => {
   });
 });
 
+// Mobile Menu Toggle
 document.getElementById('mobileToggle').addEventListener('click', openMobile);
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 document.getElementById('overlay').addEventListener('click', closeMobile);
 
 // Initialize
 renderProducts();
+showToast("💳 Selamat datang di R2 Management Official Store!");
 </script>
 </body>
 </html>
