@@ -1,5 +1,15 @@
 [build]
-  publish = "."
+  # Tentukan direktori functions
+  functions = "."
 
-[functions]
-  directory = "netlify/functions"
+# Redirect untuk API functions
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Handle SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

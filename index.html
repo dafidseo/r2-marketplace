@@ -636,24 +636,74 @@
         return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
-    // === MIDTRANS INTEGRATION - SIMULASI DEMO ===
-    // Karena di GitHub Pages tidak bisa backend, kita gunakan simulasi yang tetap profesional
+    // === MIDTRANS INTEGRATION YANG BENAR ===
     async function processPayment(product) {
-        showToast(`Memproses pesanan ${product.name}...`);
+        showToast(`⏳ Memproses pesanan ${product.name}...`);
         
-        // Simulasi popup pembayaran Midtrans
-        const confirmPay = confirm(`🛒 R2 Agency Store\n\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\n\nMetode Pembayaran:\n• Virtual Account (BCA/Mandiri/BNI)\n• QRIS\n• Credit Card\n• E-Wallet (OVO/Gopay)\n\nKlik OK untuk melanjutkan ke halaman pembayaran Midtrans`);
-        
-        if (confirmPay) {
-            // Simulasi redirect ke Midtrans
-            showToast(`⏳ Mengarahkan ke Midtrans...`);
+        try {
+            // 1. Siapkan data transaksi
+            const orderId = `R2-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            const transactionData = {
+                transaction_details: {
+                    order_id: orderId,
+                    gross_amount: product.price
+                },
+                credit_card: {
+                    secure: true
+                },
+                customer_details: {
+                    first_name: "Customer",
+                    email: "customer@r2agency.id",
+                    phone: "08123456789"
+                },
+                item_details: [
+                    {
+                        id: product.id.toString(),
+                        price: product.price,
+                        quantity: 1,
+                        name: product.name
+                    }
+                ]
+            };
             
-            setTimeout(() => {
-                alert(`🎉 Transaksi Berhasil!\n\nOrder ID: #R2${Date.now()}\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\nStatus: PAID\n\nTerima kasih telah berbelanja di R2 Agency Store!\n\nInvoice akan dikirim ke email Anda.`);
-                showToast(`✅ Pembayaran berhasil! Produk akan segera diproses.`);
-            }, 1500);
-        } else {
-            showToast(`❌ Pembayaran dibatalkan`);
+            // 2. Panggil Netlify Function untuk membuat token
+            const response = await fetch('/.netlify/functions/create-midtrans-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(transactionData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.token) {
+                // 3. Buka popup pembayaran Midtrans Snap
+                snap.pay(result.token, {
+                    onSuccess: function(result) {
+                        showToast(`✅ Pembayaran Berhasil! Order: ${result.order_id}`);
+                        alert(`🎉 Transaksi Sukses!\n\nOrder ID: ${result.order_id}\nStatus: ${result.transaction_status}\n\nTerima kasih telah berbelanja di R2 Agency Store!`);
+                    },
+                    onPending: function(result) {
+                        showToast(`⏳ Pembayaran Pending, silakan selesaikan pembayaran`);
+                        alert(`⏳ Pembayaran Pending\nOrder ID: ${result.order_id}\nSilakan selesaikan pembayaran Anda.`);
+                    },
+                    onError: function(result) {
+                        showToast(`❌ Pembayaran Gagal: ${result.status_message}`);
+                        alert(`❌ Pembayaran Gagal\n${result.status_message}`);
+                    },
+                    onClose: function() {
+                        showToast(`🚪 Popup pembayaran ditutup`);
+                    }
+                });
+            } else {
+                throw new Error(result.error || 'Gagal membuat token');
+            }
+            
+        } catch (error) {
+            console.error('Payment error:', error);
+            showToast(`❌ Error: ${error.message}`);
+            alert(`Gagal memproses pembayaran: ${error.message}\n\nSilakan coba lagi.`);
         }
     }
 
@@ -783,7 +833,7 @@
     setupMenus();
     setupSearch();
     
-    showToast("💳 Selamat datang di R2 Agency Store!");
+    showToast("💳 Selamat datang di R2 Agency Store! Pembayaran menggunakan Midtrans");
 </script>
 </body>
 </html>
