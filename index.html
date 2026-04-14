@@ -302,7 +302,7 @@
       font-weight: bold;
     }
 
-    /* Menu Actions (Mimin, Request, Daftar) */
+    /* Menu Actions */
     .action-menu {
       display: flex;
       justify-content: center;
@@ -942,38 +942,59 @@
         font-size: 24px;
       }
       
+      /* FOOTER DI HP - Urutan: Metode Pembayaran, Link Cepat, Kontak Kami */
       .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 25px;
         padding: 30px 15px 20px;
       }
       
+      /* Metode Pembayaran di atas */
       .footer-section:first-child {
-        grid-column: span 2;
-        text-align: center;
+        order: 4;
       }
       
-      .footer-section:first-child h3::after {
-        left: 50%;
-        transform: translateX(-50%);
+      .footer-section:nth-child(2) {
+        order: 2;
       }
       
-      .footer-section:first-child .social-links {
-        justify-content: center;
+      .footer-section:nth-child(3) {
+        order: 3;
       }
       
       .footer-section:last-child {
-        grid-column: span 2;
+        order: 1;
+      }
+      
+      .footer-section {
         text-align: center;
       }
       
-      .footer-section:last-child h3::after {
+      .footer-section h3::after {
         left: 50%;
         transform: translateX(-50%);
       }
       
-      .footer-section:last-child .payment-icons {
+      .footer-section .contact-info {
         justify-content: center;
+      }
+      
+      .footer-section .social-links {
+        justify-content: center;
+      }
+      
+      .payment-icons {
+        justify-content: center;
+      }
+      
+      /* Social Media Icons di bawah Link Cepat dan Kontak Kami (tampil 2x) */
+      .social-links-bottom {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
       }
       
       .product-image {
@@ -1130,6 +1151,9 @@
     <a class="mobile-link" id="mobileStreamKey">
       <i class="fas fa-key"></i> Request Stream Key
     </a>
+    <a class="mobile-link" id="mobileLiveStream">
+      <i class="fas fa-video"></i> Request Live Streaming
+    </a>
     <a class="mobile-link" id="mobileDaftar">
       <i class="fas fa-file-signature"></i> Daftar Agency
     </a>
@@ -1162,13 +1186,16 @@
     <p style="font-size:13px;">Agency TikTok Official Partner & Digital Solutions Provider</p>
     <span class="official-tag"><i class="fas fa-crown"></i> Official Store</span>
     
-    <!-- Menu Actions (Mimin, Request, Daftar) -->
+    <!-- Menu Actions -->
     <div class="action-menu">
       <button class="action-btn" id="miminBtn">
         <i class="fas fa-user-tie"></i> Mimin R2 Agency
       </button>
       <button class="action-btn" id="streamKeyBtn">
         <i class="fas fa-key"></i> Request Stream Key
+      </button>
+      <button class="action-btn" id="liveStreamBtn">
+        <i class="fas fa-video"></i> Request Live Streaming
       </button>
       <button class="action-btn" id="daftarBtn">
         <i class="fas fa-file-signature"></i> Daftar Agency
@@ -1277,6 +1304,15 @@
   </div>
 </footer>
 
+<!-- Social Media Icons Bottom (khusus HP) -->
+<div class="social-links-bottom" id="socialBottom">
+  <a href="#"><i class="fab fa-instagram"></i></a>
+  <a href="#"><i class="fab fa-tiktok"></i></a>
+  <a href="https://wa.me/6282298466638"><i class="fab fa-whatsapp"></i></a>
+  <a href="#"><i class="fab fa-facebook"></i></a>
+  <a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+
 <!-- Scroll to Top -->
 <div class="scroll-top" id="scrollTop">
   <i class="fas fa-arrow-up"></i>
@@ -1341,6 +1377,9 @@ let selectedProduct = null;
 let currentDisplay = 8;
 let isLoading = false;
 let registeredAgency = null;
+
+// Ganti link TikTok dengan milik Anda
+const TIKTOK_LINK = "https://www.tiktok.com/t/ZSmyMh7JC/";
 
 function showToast(message) {
   const existingToast = document.querySelector('.toast');
@@ -1547,6 +1586,17 @@ function requestStreamKey() {
   }
 }
 
+function requestLiveStreaming() {
+  if (!registeredAgency) {
+    showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    return;
+  }
+  const request = prompt("Tulis request fitur Live Streaming yang Anda inginkan:");
+  if (request && request.trim()) {
+    openWhatsApp("6282298466638", `Request Live Streaming dari Agency ${registeredAgency.name}: ${request}`);
+  }
+}
+
 function daftarAgency() {
   const nama = prompt("Masukkan Nama Agency:");
   if (!nama || !nama.trim()) {
@@ -1560,7 +1610,7 @@ function daftarAgency() {
   }
   registeredAgency = { name: nama, email: email };
   showToast(`✅ Agency "${nama}" berhasil terdaftar!`);
-  openWhatsApp("6282298466638", `Pendaftaran Agency Baru:\nNama: ${nama}\nEmail: ${email}\n\nSaya ingin mendaftar sebagai agency R2 Management`);
+  window.open(TIKTOK_LINK, '_blank');
 }
 
 // Navigation
@@ -1602,6 +1652,19 @@ document.getElementById('scrollTop').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// Sembunyikan social bottom di desktop, tampilkan di HP
+function toggleSocialBottom() {
+  const socialBottom = document.getElementById('socialBottom');
+  if (window.innerWidth <= 768) {
+    socialBottom.style.display = 'flex';
+  } else {
+    socialBottom.style.display = 'none';
+  }
+}
+
+window.addEventListener('resize', toggleSocialBottom);
+toggleSocialBottom();
+
 // Event Listeners
 document.getElementById("payBtn").addEventListener("click", processPayment);
 document.querySelector(".close").addEventListener("click", closeModal);
@@ -1611,11 +1674,13 @@ document.getElementById("loadMoreBtn").addEventListener("click", loadMoreProduct
 // Action Buttons
 document.getElementById("miminBtn").addEventListener("click", miminR2);
 document.getElementById("streamKeyBtn").addEventListener("click", requestStreamKey);
+document.getElementById("liveStreamBtn").addEventListener("click", requestLiveStreaming);
 document.getElementById("daftarBtn").addEventListener("click", daftarAgency);
 
 // Mobile Action Buttons
 document.getElementById("mobileMimin").addEventListener("click", () => { miminR2(); closeMobile(); });
 document.getElementById("mobileStreamKey").addEventListener("click", () => { requestStreamKey(); closeMobile(); });
+document.getElementById("mobileLiveStream").addEventListener("click", () => { requestLiveStreaming(); closeMobile(); });
 document.getElementById("mobileDaftar").addEventListener("click", () => { daftarAgency(); closeMobile(); });
 
 document.querySelectorAll(".cat-item").forEach(item => {
