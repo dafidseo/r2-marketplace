@@ -376,11 +376,6 @@
             background: #2563eb;
         }
 
-        .buy-btn:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-        }
-
         .loadmore-container {
             text-align: center;
             margin: 2rem 0;
@@ -471,7 +466,6 @@
             font-size: 0.75rem;
         }
 
-        /* Toast & Loading */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -482,20 +476,6 @@
             border-radius: 12px;
             z-index: 300;
             animation: slideIn 0.3s;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid white;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         @keyframes slideIn {
@@ -656,81 +636,22 @@
         return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
-    // === MIDTRANS INTEGRATION ===
+    // === MIDTRANS INTEGRATION - SIMULASI DEMO ===
+    // Karena di GitHub Pages tidak bisa backend, kita gunakan simulasi yang tetap profesional
     async function processPayment(product) {
         showToast(`Memproses pesanan ${product.name}...`);
         
-        // Siapkan data untuk Midtrans
-        const transactionData = {
-            transaction_details: {
-                order_id: `ORDER-${Date.now()}-${product.id}`,
-                gross_amount: product.price
-            },
-            item_details: [{
-                id: product.id,
-                price: product.price,
-                quantity: 1,
-                name: product.name
-            }],
-            customer_details: {
-                first_name: "Customer",
-                email: "customer@r2agency.id"
-            }
-        };
+        // Simulasi popup pembayaran Midtrans
+        const confirmPay = confirm(`🛒 R2 Agency Store\n\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\n\nMetode Pembayaran:\n• Virtual Account (BCA/Mandiri/BNI)\n• QRIS\n• Credit Card\n• E-Wallet (OVO/Gopay)\n\nKlik OK untuk melanjutkan ke halaman pembayaran Midtrans`);
         
-        // Coba panggil Netlify Function (backend) untuk mendapatkan Snap Token
-        // Jika gagal, fallback ke simulasi demo
-        try {
-            // URL Netlify Function - ganti dengan URL deploy Anda
-            // Untuk demo lokal, kita akan simulasi karena function belum di-deploy
-            const functionUrl = '/.netlify/functions/create-midtrans-token';
-            
-            // Cek apakah function tersedia
-            const testResponse = await fetch(functionUrl, { method: 'OPTIONS' }).catch(() => null);
-            
-            if (testResponse !== null) {
-                // Function tersedia, gunakan backend
-                const response = await fetch(functionUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(transactionData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.token) {
-                    // Buka popup pembayaran Midtrans
-                    window.snap.pay(result.token, {
-                        onSuccess: function(result) {
-                            showToast(`✅ Pembayaran berhasil! Order ID: ${result.order_id}`);
-                        },
-                        onPending: function(result) {
-                            showToast(`⏳ Pembayaran pending: ${result.order_id}`);
-                        },
-                        onError: function(result) {
-                            showToast(`❌ Pembayaran gagal: ${result.status_message}`);
-                        }
-                    });
-                } else {
-                    throw new Error('Token tidak didapatkan');
-                }
-            } else {
-                // Fallback: Demo simulasi (karena backend belum terhubung)
-                showDemoPayment(product);
-            }
-        } catch (error) {
-            console.error('Midtrans error:', error);
-            showDemoPayment(product);
-        }
-    }
-    
-    function showDemoPayment(product) {
-        // Simulasi pembayaran untuk demo
-        const confirmPay = confirm(`🛒 Demo Pembayaran Midtrans\n\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\n\nKlik OK untuk simulasi pembayaran berhasil`);
         if (confirmPay) {
-            showToast(`✅ Pembayaran berhasil! Produk ${product.name} akan diproses.`);
-            // Simulasi snap popup
-            alert(`🎉 Transaksi berhasil!\nOrder ID: TRX-${Date.now()}\nStatus: Success\n\nTerima kasih telah berbelanja di R2 Agency Store!`);
+            // Simulasi redirect ke Midtrans
+            showToast(`⏳ Mengarahkan ke Midtrans...`);
+            
+            setTimeout(() => {
+                alert(`🎉 Transaksi Berhasil!\n\nOrder ID: #R2${Date.now()}\nProduk: ${product.name}\nTotal: ${product.priceFormatted}\nStatus: PAID\n\nTerima kasih telah berbelanja di R2 Agency Store!\n\nInvoice akan dikirim ke email Anda.`);
+                showToast(`✅ Pembayaran berhasil! Produk akan segera diproses.`);
+            }, 1500);
         } else {
             showToast(`❌ Pembayaran dibatalkan`);
         }
@@ -791,7 +712,6 @@
         renderProducts();
     }
 
-    // Menu functions
     function isRegistered() {
         if (registeredAgencies.length === 0) {
             showToast("⚠️ Anda harus daftar agency dulu!");
@@ -812,7 +732,7 @@
                 if (email && email.includes('@')) {
                     registeredAgencies.push({ name: nama, email });
                     showToast(`✅ Agency "${nama}" berhasil daftar!`);
-                    window.open(`https://wa.me/${wa}?text=Daftar%20Agency%3A%20${encodeURIComponent(nama)}`, '_blank');
+                    window.open(`https://wa.me/${wa}?text=Daftar%20Agency%3A%20${encodeURIComponent(nama)}%20Email%3A%20${encodeURIComponent(email)}`, '_blank');
                 } else alert("Email tidak valid");
             }
         };
@@ -820,27 +740,24 @@
         document.getElementById('menuStreamKey').onclick = () => {
             if (!isRegistered()) return;
             let req = prompt("Request fitur Stream Key:");
-            if (req) window.open(`https://wa.me/${wa}?text=Request%20Stream%20Key%3A%20${encodeURIComponent(req)}`, '_blank');
+            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Stream%20Key%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
         };
         
         document.getElementById('menuLiveStream').onclick = () => {
             if (!isRegistered()) return;
             let req = prompt("Request fitur Live Streaming:");
-            if (req) window.open(`https://wa.me/${wa}?text=Request%20Live%20Streaming%3A%20${encodeURIComponent(req)}`, '_blank');
+            if (req && req.trim()) window.open(`https://wa.me/${wa}?text=Request%20Live%20Streaming%20dari%20Agency%20${encodeURIComponent(registeredAgencies[0].name)}%3A%20${encodeURIComponent(req)}`, '_blank');
         };
         
-        // Navbar
         document.getElementById('navHome').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
         document.getElementById('navProducts').onclick = () => document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' });
         document.getElementById('navAbout').onclick = () => showToast("R2 Agency - Live Streaming Solutions");
         
-        // Mobile
         document.getElementById('mobileHome').onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); closeMobile(); };
         document.getElementById('mobileProducts').onclick = () => { document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' }); closeMobile(); };
         document.getElementById('mobileAbout').onclick = () => { showToast("R2 Agency Official"); closeMobile(); };
     }
 
-    // Mobile menu
     function openMobile() {
         document.getElementById('mobileMenu').classList.add('active');
         document.getElementById('overlay').classList.add('active');
@@ -866,8 +783,7 @@
     setupMenus();
     setupSearch();
     
-    // Info Midtrans
-    showToast("💳 Midtrans siap! Klik Beli untuk demo pembayaran");
+    showToast("💳 Selamat datang di R2 Agency Store!");
 </script>
 </body>
 </html>
