@@ -183,49 +183,6 @@
       padding: 15px;
     }
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 20px;
-      padding: 30px 20px;
-      margin-bottom: 20px;
-      color: white;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    }
-
-    .hero h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      position: relative;
-    }
-
-    .hero p {
-      font-size: 14px;
-      margin-bottom: 15px;
-      position: relative;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 5px 15px;
-      border-radius: 30px;
-      font-size: 12px;
-      position: relative;
-    }
-
     /* Profile Card */
     .profile-card {
       background: white;
@@ -917,18 +874,6 @@
         gap: 12px;
       }
       
-      .hero {
-        padding: 20px 15px;
-      }
-      
-      .hero h1 {
-        font-size: 22px;
-      }
-      
-      .hero p {
-        font-size: 12px;
-      }
-      
       .profile-card h2 {
         font-size: 18px;
       }
@@ -942,59 +887,43 @@
         font-size: 24px;
       }
       
-      /* FOOTER DI HP - Urutan: Metode Pembayaran, Link Cepat, Kontak Kami */
+      /* FOOTER DI HP - 2 KOLOM: Link Cepat | Kontak Kami */
       .footer-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         padding: 30px 15px 20px;
       }
       
-      /* Metode Pembayaran di atas */
       .footer-section:first-child {
-        order: 4;
-      }
-      
-      .footer-section:nth-child(2) {
-        order: 2;
-      }
-      
-      .footer-section:nth-child(3) {
-        order: 3;
-      }
-      
-      .footer-section:last-child {
-        order: 1;
-      }
-      
-      .footer-section {
+        grid-column: span 2;
         text-align: center;
       }
       
-      .footer-section h3::after {
+      .footer-section:first-child h3::after {
         left: 50%;
         transform: translateX(-50%);
       }
       
+      .footer-section:first-child .social-links {
+        justify-content: center;
+      }
+      
+      .footer-section:last-child {
+        grid-column: span 2;
+        text-align: center;
+      }
+      
+      .footer-section:last-child h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .footer-section:last-child .payment-icons {
+        justify-content: center;
+      }
+      
       .footer-section .contact-info {
-        justify-content: center;
-      }
-      
-      .footer-section .social-links {
-        justify-content: center;
-      }
-      
-      .payment-icons {
-        justify-content: center;
-      }
-      
-      /* Social Media Icons di bawah Link Cepat dan Kontak Kami (tampil 2x) */
-      .social-links-bottom {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        justify-content: flex-start;
       }
       
       .product-image {
@@ -1080,6 +1009,11 @@
       .action-btn i {
         font-size: 12px;
       }
+      
+      .footer-content {
+        gap: 20px;
+        padding: 25px 12px 15px;
+      }
     }
   </style>
 </head>
@@ -1162,13 +1096,6 @@
 
 <!-- ============ MAIN CONTENT ============ -->
 <div class="container">
-  <!-- Hero Section -->
-  <div class="hero">
-    <h1>✨ R2 Digital Marketplace ✨</h1>
-    <p>Solusi lengkap untuk kebutuhan live streaming dan social media Anda</p>
-    <span class="hero-badge"><i class="fas fa-trophy"></i> Trusted by 10,000+ Creators</span>
-  </div>
-
   <!-- Profile Card -->
   <div class="profile-card">
     <div class="profile-img">
@@ -1304,15 +1231,6 @@
   </div>
 </footer>
 
-<!-- Social Media Icons Bottom (khusus HP) -->
-<div class="social-links-bottom" id="socialBottom">
-  <a href="#"><i class="fab fa-instagram"></i></a>
-  <a href="#"><i class="fab fa-tiktok"></i></a>
-  <a href="https://wa.me/6282298466638"><i class="fab fa-whatsapp"></i></a>
-  <a href="#"><i class="fab fa-facebook"></i></a>
-  <a href="#"><i class="fab fa-youtube"></i></a>
-</div>
-
 <!-- Scroll to Top -->
 <div class="scroll-top" id="scrollTop">
   <i class="fas fa-arrow-up"></i>
@@ -1376,7 +1294,7 @@ let currentSearch = "";
 let selectedProduct = null;
 let currentDisplay = 8;
 let isLoading = false;
-let registeredAgency = null;
+let registeredAgency = false;
 
 // Ganti link TikTok dengan milik Anda
 const TIKTOK_LINK = "https://www.tiktok.com/t/ZSmyMh7JC/";
@@ -1578,38 +1496,30 @@ function miminR2() {
 function requestStreamKey() {
   if (!registeredAgency) {
     showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    daftarAgency();
     return;
   }
   const request = prompt("Tulis request fitur Stream Key yang Anda inginkan:");
   if (request && request.trim()) {
-    openWhatsApp("6282298466638", `Request Stream Key dari Agency ${registeredAgency.name}: ${request}`);
+    openWhatsApp("6282298466638", `Request Stream Key: ${request}`);
   }
 }
 
 function requestLiveStreaming() {
   if (!registeredAgency) {
     showToast("⚠️ Silakan daftar Agency terlebih dahulu!");
+    daftarAgency();
     return;
   }
   const request = prompt("Tulis request fitur Live Streaming yang Anda inginkan:");
   if (request && request.trim()) {
-    openWhatsApp("6282298466638", `Request Live Streaming dari Agency ${registeredAgency.name}: ${request}`);
+    openWhatsApp("6282298466638", `Request Live Streaming: ${request}`);
   }
 }
 
 function daftarAgency() {
-  const nama = prompt("Masukkan Nama Agency:");
-  if (!nama || !nama.trim()) {
-    showToast("❌ Nama agency tidak boleh kosong!");
-    return;
-  }
-  const email = prompt("Masukkan Email Agency:");
-  if (!email || !email.includes('@')) {
-    showToast("❌ Email tidak valid!");
-    return;
-  }
-  registeredAgency = { name: nama, email: email };
-  showToast(`✅ Agency "${nama}" berhasil terdaftar!`);
+  registeredAgency = true;
+  showToast(`✅ Berhasil terdaftar sebagai Agency R2 Management!`);
   window.open(TIKTOK_LINK, '_blank');
 }
 
@@ -1651,19 +1561,6 @@ window.addEventListener('scroll', () => {
 document.getElementById('scrollTop').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-
-// Sembunyikan social bottom di desktop, tampilkan di HP
-function toggleSocialBottom() {
-  const socialBottom = document.getElementById('socialBottom');
-  if (window.innerWidth <= 768) {
-    socialBottom.style.display = 'flex';
-  } else {
-    socialBottom.style.display = 'none';
-  }
-}
-
-window.addEventListener('resize', toggleSocialBottom);
-toggleSocialBottom();
 
 // Event Listeners
 document.getElementById("payBtn").addEventListener("click", processPayment);
@@ -1722,7 +1619,7 @@ document.getElementById('overlay').addEventListener('click', closeMobile);
 
 // Initialize
 renderProducts();
-showToast("💳 Selamat datang di R2 Management Official Store!");
+
 </script>
 </body>
 </html>
