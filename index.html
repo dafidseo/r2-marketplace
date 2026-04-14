@@ -47,21 +47,23 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .logo-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
-    .logo-icon i {
-      font-size: 20px;
-      color: white;
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .logo-text {
@@ -176,6 +178,131 @@
       display: block;
     }
 
+    /* ============ BANNER SLIDER/CAROUSEL ============ */
+    .banner-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .banner-slider {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .banner-wrapper {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .banner-slide {
+      flex-shrink: 0;
+      width: 100%;
+      position: relative;
+    }
+
+    .banner-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .banner-content {
+      position: absolute;
+      bottom: 20%;
+      left: 10%;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      max-width: 60%;
+    }
+
+    .banner-content h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .banner-content p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .banner-btn {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .banner-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Tombol panah */
+    .banner-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.3s;
+    }
+
+    .banner-arrow:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .banner-arrow-left {
+      left: 15px;
+    }
+
+    .banner-arrow-right {
+      right: 15px;
+    }
+
+    /* Indikator dots */
+    .banner-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .banner-dot {
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .banner-dot.active {
+      background: white;
+      width: 25px;
+      border-radius: 10px;
+    }
+
     /* ============ MAIN CONTENT ============ */
     .container {
       max-width: 1400px;
@@ -208,7 +335,6 @@
     .profile-img {
       width: 80px;
       height: 80px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -218,17 +344,21 @@
       z-index: 1;
       border: 3px solid white;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .profile-img i {
-      font-size: 35px;
-      color: white;
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .profile-card h2 {
       font-size: 22px;
       color: #333;
       margin-bottom: 5px;
+      cursor: pointer;
     }
 
     .verified-badge {
@@ -858,6 +988,10 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
       }
+      
+      .banner-content h3 {
+        font-size: 22px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -887,13 +1021,15 @@
         font-size: 24px;
       }
       
-      /* FOOTER DI HP - 2 KOLOM: Link Cepat | Kontak Kami */
+      /* FOOTER DI HP - Urutan baru dengan grid 2 kolom untuk Link Cepat & Kontak Kami */
       .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 25px;
         padding: 30px 15px 20px;
       }
       
+      /* About section (full width) */
       .footer-section:first-child {
         grid-column: span 2;
         text-align: center;
@@ -908,9 +1044,39 @@
         justify-content: center;
       }
       
+      /* Link Cepat (kolom kiri) */
+      .footer-section:nth-child(2) {
+        text-align: left;
+        grid-column: span 1;
+      }
+      
+      .footer-section:nth-child(2) h3::after {
+        left: 0;
+      }
+      
+      .footer-section:nth-child(2) .contact-info {
+        justify-content: flex-start;
+      }
+      
+      /* Kontak Kami (kolom kanan) */
+      .footer-section:nth-child(3) {
+        text-align: left;
+        grid-column: span 1;
+      }
+      
+      .footer-section:nth-child(3) h3::after {
+        left: 0;
+      }
+      
+      .footer-section:nth-child(3) .contact-info {
+        justify-content: flex-start;
+      }
+      
+      /* Metode Pembayaran (full width) */
       .footer-section:last-child {
         grid-column: span 2;
         text-align: center;
+        margin-top: 10px;
       }
       
       .footer-section:last-child h3::after {
@@ -922,8 +1088,32 @@
         justify-content: center;
       }
       
-      .footer-section .contact-info {
-        justify-content: flex-start;
+      /* Banner responsive */
+      .banner-content {
+        bottom: 10%;
+        left: 5%;
+        max-width: 80%;
+      }
+      
+      .banner-content h3 {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      
+      .banner-content p {
+        font-size: 10px;
+        margin-bottom: 8px;
+      }
+      
+      .banner-btn {
+        padding: 5px 12px;
+        font-size: 10px;
+      }
+      
+      .banner-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
       }
       
       .product-image {
@@ -1014,6 +1204,19 @@
         gap: 20px;
         padding: 25px 12px 15px;
       }
+      
+      .banner-content h3 {
+        font-size: 14px;
+      }
+      
+      .banner-content p {
+        font-size: 9px;
+      }
+      
+      .banner-btn {
+        padding: 4px 10px;
+        font-size: 9px;
+      }
     }
   </style>
 </head>
@@ -1023,9 +1226,9 @@
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-content">
-      <div class="logo">
+      <div class="logo" id="logoHome">
         <div class="logo-icon">
-          <i class="fas fa-store"></i>
+          <img src="logo-r2.jpg" alt="R2 Logo" onerror="this.src='https://placehold.co/40x40/667eea/white?text=R2'">
         </div>
         <div class="logo-text">R2 <span>Management</span></div>
       </div>
@@ -1056,9 +1259,9 @@
 <div class="overlay" id="overlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-header">
-    <div class="logo">
+    <div class="logo" id="mobileLogoHome">
       <div class="logo-icon">
-        <i class="fas fa-store"></i>
+        <img src="logo-r2.jpg" alt="R2 Logo" onerror="this.src='https://placehold.co/40x40/667eea/white?text=R2'">
       </div>
       <div class="logo-text">R2 <span>Management</span></div>
     </div>
@@ -1096,12 +1299,55 @@
 
 <!-- ============ MAIN CONTENT ============ -->
 <div class="container">
+  <!-- BANNER SLIDER/CAROUSEL -->
+  <div class="banner-container">
+    <div class="banner-slider">
+      <div class="banner-wrapper" id="bannerWrapper">
+        <div class="banner-slide">
+          <img src="https://placehold.co/1200x400/667eea/white?text=Promo+1" alt="Banner 1">
+          <div class="banner-content">
+            <h3>Diskon 50%</h3>
+            <p>Untuk semua produk overlay</p>
+            <button class="banner-btn" onclick="scrollToProducts()">Belanja Sekarang</button>
+          </div>
+        </div>
+        <div class="banner-slide">
+          <img src="https://placehold.co/1200x400/764ba2/white?text=Promo+2" alt="Banner 2">
+          <div class="banner-content">
+            <h3>Paket Hemat</h3>
+            <p>Bundling 3 produk lebih hemat</p>
+            <button class="banner-btn" onclick="scrollToProducts()">Lihat Paket</button>
+          </div>
+        </div>
+        <div class="banner-slide">
+          <img src="https://placehold.co/1200x400/1E3C72/white?text=Promo+3" alt="Banner 3">
+          <div class="banner-content">
+            <h3>Gratis Ongkir</h3>
+            <p>Untuk pembelian di atas Rp500.000</p>
+            <button class="banner-btn" onclick="scrollToProducts()">Belanja Sekarang</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tombol panah -->
+      <div class="banner-arrow banner-arrow-left" id="arrowLeft">
+        <i class="fas fa-chevron-left"></i>
+      </div>
+      <div class="banner-arrow banner-arrow-right" id="arrowRight">
+        <i class="fas fa-chevron-right"></i>
+      </div>
+      
+      <!-- Indikator dots -->
+      <div class="banner-dots" id="bannerDots"></div>
+    </div>
+  </div>
+
   <!-- Profile Card -->
   <div class="profile-card">
-    <div class="profile-img">
-      <i class="fas fa-store"></i>
+    <div class="profile-img" id="profileHome">
+      <img src="profile-r2.jpg" alt="Profile" onerror="this.src='https://placehold.co/80x80/667eea/white?text=R2'">
     </div>
-    <h2>R2 Management <span class="verified-badge">✓</span></h2>
+    <h2 id="profileNameHome">R2 Management <span class="verified-badge">✓</span></h2>
     <div class="rating">
       <i class="fas fa-star"></i>
       <i class="fas fa-star"></i>
@@ -1271,7 +1517,92 @@
 </div>
 
 <script>
-// Data Produk
+// ============ BANNER SLIDER ============
+let currentSlide = 0;
+const slides = document.querySelectorAll('.banner-slide');
+const totalSlides = slides.length;
+const bannerWrapper = document.getElementById('bannerWrapper');
+const arrowLeft = document.getElementById('arrowLeft');
+const arrowRight = document.getElementById('arrowRight');
+const dotsContainer = document.getElementById('bannerDots');
+let autoSlideInterval;
+
+// Buat dots
+function createDots() {
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('banner-dot');
+    if (i === currentSlide) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  }
+}
+
+// Update dots active
+function updateDots() {
+  const dots = document.querySelectorAll('.banner-dot');
+  dots.forEach((dot, index) => {
+    if (index === currentSlide) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+// Go to specific slide
+function goToSlide(index) {
+  currentSlide = index;
+  if (currentSlide >= totalSlides) currentSlide = 0;
+  if (currentSlide < 0) currentSlide = totalSlides - 1;
+  bannerWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+  updateDots();
+  resetAutoSlide();
+}
+
+// Next slide
+function nextSlide() {
+  currentSlide++;
+  if (currentSlide >= totalSlides) currentSlide = 0;
+  bannerWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+  updateDots();
+  resetAutoSlide();
+}
+
+// Previous slide
+function prevSlide() {
+  currentSlide--;
+  if (currentSlide < 0) currentSlide = totalSlides - 1;
+  bannerWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+  updateDots();
+  resetAutoSlide();
+}
+
+// Auto slide
+function startAutoSlide() {
+  autoSlideInterval = setInterval(nextSlide, 5000);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Event listeners untuk panah
+arrowLeft.addEventListener('click', prevSlide);
+arrowRight.addEventListener('click', nextSlide);
+
+// Scroll ke produk
+function scrollToProducts() {
+  document.querySelector('.products-grid').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Inisialisasi slider
+createDots();
+startAutoSlide();
+
+// ============ DATA PRODUK ============
 const allProducts = [
   { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, icon: "fab fa-tiktok", discount: "50%" },
   { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, icon: "fas fa-layer-group", discount: "40%" },
@@ -1296,7 +1627,6 @@ let currentDisplay = 8;
 let isLoading = false;
 let registeredAgency = false;
 
-// Ganti link TikTok dengan milik Anda
 const TIKTOK_LINK = "https://www.tiktok.com/t/ZSmyMh7JC/";
 
 function showToast(message) {
@@ -1523,7 +1853,11 @@ function daftarAgency() {
   window.open(TIKTOK_LINK, '_blank');
 }
 
-// Navigation
+// Navigate to Home (logo/profile click)
+function goToHome() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function navigateTo(section) {
   const sections = {
     home: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
@@ -1567,6 +1901,12 @@ document.getElementById("payBtn").addEventListener("click", processPayment);
 document.querySelector(".close").addEventListener("click", closeModal);
 window.onclick = (e) => { if (e.target === document.getElementById("modal")) closeModal(); };
 document.getElementById("loadMoreBtn").addEventListener("click", loadMoreProducts);
+
+// Logo & Profile click to home
+document.getElementById("logoHome").addEventListener("click", goToHome);
+document.getElementById("mobileLogoHome").addEventListener("click", goToHome);
+document.getElementById("profileHome").addEventListener("click", goToHome);
+document.getElementById("profileNameHome").addEventListener("click", goToHome);
 
 // Action Buttons
 document.getElementById("miminBtn").addEventListener("click", miminR2);
@@ -1619,7 +1959,7 @@ document.getElementById('overlay').addEventListener('click', closeMobile);
 
 // Initialize
 renderProducts();
-
+showToast("💳 Selamat datang di R2 Management Official Store!");
 </script>
 </body>
 </html>
