@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>R2 Management - Official Marketplace</title>
+  <title>Raziq Rayyan Management - Official Marketplace</title>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="media/r2.png" onerror="this.href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏪</text></svg>'">
   <link rel="apple-touch-icon" href="media/r2.png">
@@ -331,18 +331,21 @@
       color: #333;
       margin-bottom: 5px;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .verified-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: #1d9bf0;
       width: 18px;
       height: 18px;
       border-radius: 50%;
       font-size: 10px;
-      line-height: 18px;
       color: white;
-      margin-left: 5px;
     }
 
     .official-tag {
@@ -1442,10 +1445,10 @@
       <i class="fas fa-user-tie"></i> Mimin R2 Agency
     </a>
     <a class="mobile-link" id="mobileStreamKey">
-      <i class="fas fa-key"></i> Request Stream Key
+      <i class="fas fa-key"></i> Request Fitur Stream Key
     </a>
     <a class="mobile-link" id="mobileLiveStream">
-      <i class="fas fa-video"></i> Request Live Streaming
+      <i class="fas fa-video"></i> Request Fitur Live Streaming
     </a>
     <a class="mobile-link" id="mobileRekber">
       <i class="fas fa-handshake"></i> Jasa Rekber
@@ -1489,7 +1492,7 @@
     <div class="profile-img" id="profileHome">
       <img src="media/r2.png" alt="Profile" onerror="this.src='https://placehold.co/80x80/667eea/white?text=R2'">
     </div>
-    <h2 id="profileNameHome">R2 Management <span class="verified-badge">✓</span></h2>
+    <h2 id="profileNameHome">Raziq Rayyan Management <span class="verified-badge">✓</span></h2>
     <p style="font-size:13px; margin-bottom:8px;">Agency TikTok Official Partner & Digital Solutions Provider</p>
     <span class="official-tag"><i class="fas fa-crown"></i> Official Store</span>
     
@@ -1592,7 +1595,7 @@
     
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)">
-        Bagaimana cara menjadi agen R2 Management?
+        Bagaimana cara menjadi agen Raziq Rayyan Management?
         <i class="fas fa-chevron-down"></i>
       </div>
       <div class="faq-answer">
@@ -1606,7 +1609,7 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-section">
-      <h3><i class="fas fa-store"></i> R2 Management</h3>
+      <h3><i class="fas fa-store"></i> Raziq Rayyan Management</h3>
       <p>Platform terpercaya untuk kebutuhan digital Anda. Kami menyediakan berbagai layanan berkualitas dengan harga terbaik.</p>
       <div class="social-links">
         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -1620,19 +1623,16 @@
     <div class="footer-section">
       <h3><i class="fas fa-link"></i> Link Cepat</h3>
       <div class="contact-info">
-        <i class="fas fa-chevron-right"></i> <a href="#">Tentang Kami</a>
+        <i class="fas fa-chevron-right"></i> <a href="tentangkami.html">Tentang Kami</a>
       </div>
       <div class="contact-info">
-        <i class="fas fa-chevron-right"></i> <a href="#">Kebijakan Privasi</a>
+        <i class="fas fa-chevron-right"></i> <a href="privacy.html">Kebijakan Privasi</a>
       </div>
       <div class="contact-info">
-        <i class="fas fa-chevron-right"></i> <a href="#">Syarat & Ketentuan</a>
+        <i class="fas fa-chevron-right"></i> <a href="syarat.html">Syarat & Ketentuan</a>
       </div>
       <div class="contact-info">
-        <i class="fas fa-chevron-right"></i> <a href="#">Garansi & Refund</a>
-      </div>
-      <div class="contact-info">
-        <i class="fas fa-chevron-right"></i> <a href="#">FAQ</a>
+        <i class="fas fa-chevron-right"></i> <a href="garansi.html">Garansi & Refund</a>
       </div>
     </div>
     
@@ -1642,13 +1642,13 @@
         <i class="fab fa-whatsapp"></i> +62 822-9846-6638
       </div>
       <div class="contact-info">
-        <i class="far fa-envelope"></i> support@r2management.com
+        <i class="far fa-envelope"></i> raziqrayyanmanagement@gmail.com
       </div>
       <div class="contact-info">
         <i class="fas fa-clock"></i> Senin - Minggu, 24/7
       </div>
       <div class="contact-info">
-        <i class="fas fa-map-marker-alt"></i> Sibolga, Indonesia
+        <i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia
       </div>
     </div>
     
@@ -1700,10 +1700,7 @@
         <span class="detail-tag"><i class="fas fa-clock"></i> Instant Delivery</span>
         <span class="detail-tag"><i class="fas fa-shield-alt"></i> Garansi 7 Hari</span>
       </div>
-      <div class="product-detail-desc" id="detailProductDesc">
-        Produk digital berkualitas tinggi untuk kebutuhan live streaming dan social media Anda. 
-        Proses cepat dan aman.
-      </div>
+      <div class="product-detail-desc" id="detailProductDesc"></div>
       <button class="detail-buy-btn" id="detailBuyBtn">
         <i class="fas fa-shopping-cart"></i> Beli Sekarang
       </button>
@@ -1892,7 +1889,7 @@ arrowRight.addEventListener('click', (e) => {
 createDots();
 startAutoSlide();
 
-// ============ DATA PRODUK DENGAN FALLBACK GAMBAR OTOMATIS ============
+// ============ DATA PRODUK ============
 const allProducts = [
   { id: 1, name: "Les Private TikTok", cat: "les", price: 1000000, oldPrice: 2000000, image: "media/les.jpeg", discount: "50%", desc: "Les private TikTok bersama mentor berpengalaman. Materi lengkap dari dasar hingga mahir. Cocok untuk pemula yang ingin menjadi konten kreator profesional. Sertifikat kelulusan dan bimbingan langsung." },
   { id: 2, name: "Overlay Livestreaming", cat: "overlay", price: 30000, oldPrice: 50000, image: "media/overlay.jpeg", discount: "40%", desc: "Paket overlay livestreaming profesional dengan desain keren. Termasuk alert, panel, dan banner. Compatible dengan OBS dan Streamlabs. Desain bisa custom sesuai request." },
@@ -1901,13 +1898,7 @@ const allProducts = [
   { id: 5, name: "10.000 Followers TikTok", cat: "followers", price: 700000, oldPrice: 1000000, image: "media/tiktok.png", discount: "30%", desc: "Paket besar 10.000 followers TikTok. Cocok untuk brand atau bisnis yang ingin meningkatkan kredibilitas dan kepercayaan pelanggan." },
   { id: 6, name: "Akun Capcut Pro", cat: "bundle", price: 200000, oldPrice: 300000, image: "media/capcut.png", discount: "33%", desc: "Akun Capcut Pro premium dengan fitur lengkap. Bisa digunakan untuk edit video profesional tanpa watermark. Akses semua template premium." },
   { id: 7, name: "100.000 Views TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "media/tiktok.png", discount: "50%", desc: "Tingkatkan views video TikTok Anda hingga 100.000 views. Meningkatkan exposure dan viral potensial. Proses cepat dalam 1x24 jam." },
-  { id: 8, name: "1.000 Like TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "media/tiktok.png", discount: "50%", desc: "Like TikTok real dan aktif. Meningkatkan engagement dan membuat video lebih menarik. Like dari akun aktif Indonesia." },
-  { id: 9, name: "Streaming Studio Pro", cat: "overlay", price: 150000, oldPrice: 250000, image: "product9.jpg", discount: "40%", desc: "Paket lengkap streaming studio pro. Termasuk overlay, stinger transition, dan alert sound efek. Desain eksklusif untuk channel Anda." },
-  { id: 10, name: "5.000 Followers TikTok", cat: "followers", price: 350000, oldPrice: 500000, image: "product10.jpg", discount: "30%", desc: "5.000 followers TikTok berkualitas. Meningkatkan kredibilitas akun secara signifikan. Proses aman dan cepat." },
-  { id: 11, name: "Green Screen Effect", cat: "overlay", price: 25000, oldPrice: 50000, image: "product11.jpg", discount: "50%", desc: "Background green screen efek keren untuk streaming. 50+ template background dengan kualitas HD." },
-  { id: 12, name: "Live Studio Bundle", cat: "bundle", price: 500000, oldPrice: 800000, image: "product12.jpg", discount: "37%", desc: "Paket bundle lengkap untuk live streaming. Termasuk overlay, followers, views, dan peralatan streaming lainnya." },
-  { id: 13, name: "Donation Alert", cat: "overlay", price: 45000, oldPrice: 80000, image: "product13.jpg", discount: "44%", desc: "Alert donation keren untuk livestreaming. Desain custom sesuai request. Support semua platform streaming." },
-  { id: 14, name: "Subscriber Badges", cat: "overlay", price: 35000, oldPrice: 60000, image: "product14.jpg", discount: "42%", desc: "Badge subscriber eksklusif untuk member setia channel Anda. Desain profesional dan menarik." }
+  { id: 8, name: "1.000 Like TikTok", cat: "tiktok", price: 50000, oldPrice: 100000, image: "media/tiktok.png", discount: "50%", desc: "Like TikTok real dan aktif. Meningkatkan engagement dan membuat video lebih menarik. Like dari akun aktif Indonesia." }
 ];
 
 let currentCat = "all";
@@ -1932,12 +1923,6 @@ function getFilteredProducts() {
   return filtered;
 }
 
-// Fungsi untuk mencoba berbagai ekstensi gambar
-function getProductImageSrc(product) {
-  // Coba dengan ekstensi .jpg dulu, jika gagal akan coba .png
-  return product.image;
-}
-
 // ============ DETAIL PRODUK MODAL ============
 function showProductDetail(productId) {
   const product = allProducts.find(p => p.id === productId);
@@ -1946,13 +1931,7 @@ function showProductDetail(productId) {
   const detailImg = document.getElementById('detailProductImage');
   detailImg.src = product.image;
   detailImg.onerror = function() {
-    // Coba ganti ekstensi ke .png
-    let newSrc = product.image.replace(/\.jpg$|\.jpeg$/, '.png');
-    if (newSrc !== product.image) {
-      this.src = newSrc;
-    } else {
-      this.src = `https://placehold.co/400x300/667eea/white?text=${encodeURIComponent(product.name)}`;
-    }
+    this.src = `https://placehold.co/600x400/667eea/white?text=${encodeURIComponent(product.name)}`;
   };
   
   document.getElementById('detailProductName').innerText = product.name;
@@ -2002,9 +1981,7 @@ function renderProducts() {
   container.innerHTML = visible.map(p => `
     <div class="product-card" onclick="showProductDetail(${p.id})">
       <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" 
-             onerror="this.onerror=null; this.src='${p.image.replace(/\.jpg$|\.jpeg$/, '.png')}'; 
-                      this.onerror=function(){ this.src='https://placehold.co/400x300/667eea/white?text=${encodeURIComponent(p.name)}' }">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/600x400/667eea/white?text=${encodeURIComponent(p.name)}'">
         <div class="discount-badge">-${p.discount}</div>
       </div>
       <div class="product-info">
@@ -2104,7 +2081,7 @@ async function processPayment() {
     }],
     customer_details: {
       first_name: "Customer",
-      email: "customer@r2.com",
+      email: "raziqrayyanmanagement@gmail.com",
       phone: "08123456789"
     }
   };
