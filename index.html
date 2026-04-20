@@ -22,6 +22,8 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ============ NAVIGATION BAR ============ */
@@ -31,12 +33,14 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      width: 100%;
     }
 
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 15px;
+      width: 100%;
     }
 
     .nav-content {
@@ -280,6 +284,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 15px;
+      width: 100%;
     }
 
     /* Profile Card */
@@ -400,6 +405,7 @@
       padding: 15px;
       margin-bottom: 20px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      width: 100%;
     }
 
     .search-box {
@@ -773,6 +779,7 @@
       padding: 25px;
       margin: 30px 0 20px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      width: 100%;
     }
 
     .faq-title {
@@ -1002,6 +1009,7 @@
       background: #1a1a2e;
       color: #fff;
       margin-top: 40px;
+      width: 100%;
     }
 
     .footer-content {
@@ -1011,6 +1019,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 30px;
+      width: 100%;
     }
 
     .footer-section h3 {
@@ -1170,6 +1179,10 @@
     }
 
     @media (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+      }
+      
       .nav-menu {
         display: none;
       }
@@ -1204,34 +1217,20 @@
         height: 200px;
       }
       
+      /* FOOTER DI HP - 2 KOLOM SEJAJAR TIDAK OVERFLOW */
       .footer-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 25px;
+        gap: 20px;
         padding: 30px 15px 20px;
+        width: 100%;
+        overflow-x: hidden;
       }
       
-      .footer-section:last-child {
-        grid-column: span 2;
-        order: 1;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      
-      .footer-section:last-child h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      
-      .footer-section:last-child .payment-icons {
-        justify-content: center;
-      }
-      
+      /* About section (full width) */
       .footer-section:first-child {
         grid-column: span 2;
-        order: 4;
         text-align: center;
-        margin-top: 10px;
       }
       
       .footer-section:first-child h3::after {
@@ -1243,24 +1242,48 @@
         justify-content: center;
       }
       
+      /* Link Cepat (kolom kiri) */
       .footer-section:nth-child(2) {
         text-align: left;
         grid-column: span 1;
-        order: 2;
       }
       
       .footer-section:nth-child(2) h3::after {
         left: 0;
       }
       
+      .footer-section:nth-child(2) .contact-info {
+        justify-content: flex-start;
+      }
+      
+      /* Kontak Kami (kolom kanan) */
       .footer-section:nth-child(3) {
         text-align: left;
         grid-column: span 1;
-        order: 3;
       }
       
       .footer-section:nth-child(3) h3::after {
         left: 0;
+      }
+      
+      .footer-section:nth-child(3) .contact-info {
+        justify-content: flex-start;
+      }
+      
+      /* Metode Pembayaran (full width) */
+      .footer-section:last-child {
+        grid-column: span 2;
+        text-align: center;
+        margin-top: 10px;
+      }
+      
+      .footer-section:last-child h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .footer-section:last-child .payment-icons {
+        justify-content: center;
       }
       
       .banner-arrow {
@@ -1367,8 +1390,8 @@
       }
       
       .footer-content {
-        gap: 20px;
-        padding: 25px 12px 15px;
+        gap: 15px;
+        padding: 25px 12px 20px;
       }
       
       .product-detail-img {
