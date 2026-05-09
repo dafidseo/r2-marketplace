@@ -838,6 +838,80 @@
       padding-bottom: 15px;
     }
 
+    /* Modal Agency Request */
+    .agency-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1200;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .agency-modal.active {
+      display: flex;
+    }
+
+    .agency-modal-content {
+      background: white;
+      border-radius: 25px;
+      padding: 25px;
+      width: 90%;
+      max-width: 380px;
+      text-align: center;
+      animation: modalSlideIn 0.3s ease;
+    }
+
+    .agency-modal-content h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .agency-modal-content p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .agency-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .agency-btn {
+      padding: 12px;
+      border-radius: 40px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.3s;
+    }
+
+    .agency-btn.register {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .agency-btn.whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .agency-btn.close-modal {
+      background: #f0f0f0;
+      color: #555;
+    }
+
     /* Modal Payment */
     .modal {
       display: none;
@@ -1217,7 +1291,6 @@
         height: 200px;
       }
       
-      /* FOOTER DI HP - 2 KOLOM SEJAJAR TIDAK OVERFLOW */
       .footer-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1227,7 +1300,6 @@
         overflow-x: hidden;
       }
       
-      /* About section (full width) */
       .footer-section:first-child {
         grid-column: span 2;
         text-align: center;
@@ -1242,7 +1314,6 @@
         justify-content: center;
       }
       
-      /* Link Cepat (kolom kiri) */
       .footer-section:nth-child(2) {
         text-align: left;
         grid-column: span 1;
@@ -1252,11 +1323,6 @@
         left: 0;
       }
       
-      .footer-section:nth-child(2) .contact-info {
-        justify-content: flex-start;
-      }
-      
-      /* Kontak Kami (kolom kanan) */
       .footer-section:nth-child(3) {
         text-align: left;
         grid-column: span 1;
@@ -1266,11 +1332,6 @@
         left: 0;
       }
       
-      .footer-section:nth-child(3) .contact-info {
-        justify-content: flex-start;
-      }
-      
-      /* Metode Pembayaran (full width) */
       .footer-section:last-child {
         grid-column: span 2;
         text-align: center;
@@ -1671,7 +1732,7 @@
         <i class="fas fa-clock"></i> Senin - Minggu, 24/7
       </div>
       <div class="contact-info">
-        <i class="fas fa-map-marker-alt"></i> Sibolga, Indonesia
+        <i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia
       </div>
     </div>
     
@@ -1699,6 +1760,25 @@
 <!-- Scroll to Top -->
 <div class="scroll-top" id="scrollTop">
   <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Modal Agency Request (Pilihan Daftar atau WA Admin) -->
+<div id="agencyRequestModal" class="agency-modal">
+  <div class="agency-modal-content">
+    <h3><i class="fas fa-handshake"></i> Verifikasi Agency</h3>
+    <p>Untuk melakukan request fitur ini, Anda harus terdaftar sebagai Agency R2 terlebih dahulu.</p>
+    <div class="agency-buttons">
+      <button class="agency-btn register" id="modalDaftarAgencyBtn">
+        <i class="fas fa-file-signature"></i> Daftar Agency Sekarang
+      </button>
+      <button class="agency-btn whatsapp" id="modalHubungiAdminBtn">
+        <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp Admin Agency
+      </button>
+      <button class="agency-btn close-modal" id="modalCloseAgencyBtn">
+        <i class="fas fa-times"></i> Tutup
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- Modal Detail Produk -->
@@ -1929,9 +2009,9 @@ let currentSearch = "";
 let selectedProduct = null;
 let currentDisplay = 8;
 let isLoading = false;
-let registeredAgency = false;
 
-const TIKTOK_LINK = "https://www.tiktok.com/t/ZSmyMh7JC/";
+// Variable untuk menyimpan jenis request yang dipilih
+let currentRequestType = null; // 'stream' atau 'live'
 
 function formatRp(amount) {
   return "Rp" + amount.toLocaleString("id-ID");
@@ -2139,7 +2219,7 @@ async function processPayment() {
   }
 }
 
-// Action Menu Functions
+// ============ FUNGSI MENU ACTION ============
 function openWhatsApp(number, text) {
   window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank');
 }
@@ -2148,28 +2228,54 @@ function miminR2() {
   openWhatsApp("6282298466638", "Halo Mimin R2 Agency, saya ingin bertanya tentang layanan R2 Management");
 }
 
-function requestStreamKey() {
-  if (!registeredAgency) {
-    alert("⚠️ Silakan daftar Agency terlebih dahulu!");
-    daftarAgency();
-    return;
-  }
-  const request = prompt("Tulis request fitur Stream Key yang Anda inginkan:");
-  if (request && request.trim()) {
-    openWhatsApp("6282298466638", `Request Stream Key: ${request}`);
+// ============ FITUR REQUEST DENGAN MODAL (2 PILIHAN) ============
+function showAgencyModal(type) {
+  currentRequestType = type; // 'stream' atau 'live'
+  document.getElementById('agencyRequestModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAgencyModal() {
+  document.getElementById('agencyRequestModal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentRequestType = null;
+}
+
+// Tombol Daftar Agency (buka link TikTok di tab baru)
+function daftarAgencyViaModal() {
+  window.open("https://www.tiktok.com/t/ZSmyMh7JC/", "_blank");
+  alert("Pendaftaran Agency dibuka di tab baru. Setelah mendaftar, silakan ulangi request Anda.");
+  closeAgencyModal();
+}
+
+// Tombol Hubungi Admin via WhatsApp (WAJIB PAKAI USERNAME TIKTOK)
+function hubungiAdminViaWA() {
+  let username = prompt("Masukkan USERNAME TikTok Anda (contoh: @johndoe atau johndoe):");
+  if (username && username.trim()) {
+    let requestText = "";
+    if (currentRequestType === 'stream') {
+      requestText = "Fitur Stream Key";
+    } else if (currentRequestType === 'live') {
+      requestText = "Fitur Live Streaming";
+    } else {
+      requestText = "Fitur";
+    }
+    let message = `Halo Admin, saya ingin request ${requestText}.\n\nUsername TikTok saya: ${username.trim()}`;
+    openWhatsApp("6282298466638", message);
+    closeAgencyModal();
+  } else if (username !== null) {
+    alert("Username TikTok tidak boleh kosong! Silakan coba lagi.");
   }
 }
 
+// Handler untuk tombol Request Stream Key
+function requestStreamKey() {
+  showAgencyModal('stream');
+}
+
+// Handler untuk tombol Request Live Streaming
 function requestLiveStreaming() {
-  if (!registeredAgency) {
-    alert("⚠️ Silakan daftar Agency terlebih dahulu!");
-    daftarAgency();
-    return;
-  }
-  const request = prompt("Tulis request fitur Live Streaming yang Anda inginkan:");
-  if (request && request.trim()) {
-    openWhatsApp("6282298466638", `Request Live Streaming: ${request}`);
-  }
+  showAgencyModal('live');
 }
 
 function jasaRekber() {
@@ -2177,12 +2283,10 @@ function jasaRekber() {
 }
 
 function daftarAgency() {
-  registeredAgency = true;
-  alert("✅ Berhasil terdaftar sebagai Agency R2 Management!");
-  window.open(TIKTOK_LINK, '_blank');
+  window.open("https://www.tiktok.com/t/ZSmyMh7JC/", "_blank");
 }
 
-// Navigate to Home
+// Navigasi
 function goToHome() {
   window.location.href = '/';
 }
@@ -2225,10 +2329,14 @@ document.getElementById('scrollTop').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Event Listeners
+// ============ EVENT LISTENERS ============
 document.getElementById("payBtn").addEventListener("click", processPayment);
 document.querySelector(".close").addEventListener("click", closeModal);
-window.onclick = (e) => { if (e.target === document.getElementById("modal")) closeModal(); };
+window.onclick = (e) => { 
+  if (e.target === document.getElementById("modal")) closeModal(); 
+  if (e.target === document.getElementById("agencyRequestModal")) closeAgencyModal();
+  if (e.target === document.getElementById("productDetailModal")) closeProductDetail();
+};
 document.getElementById("loadMoreBtn").addEventListener("click", loadMoreProducts);
 
 // Logo & Profile click to home
@@ -2244,6 +2352,11 @@ document.getElementById("liveStreamBtn").addEventListener("click", requestLiveSt
 document.getElementById("rekberBtn").addEventListener("click", jasaRekber);
 document.getElementById("daftarBtn").addEventListener("click", daftarAgency);
 
+// Modal Agency Buttons
+document.getElementById("modalDaftarAgencyBtn").addEventListener("click", daftarAgencyViaModal);
+document.getElementById("modalHubungiAdminBtn").addEventListener("click", hubungiAdminViaWA);
+document.getElementById("modalCloseAgencyBtn").addEventListener("click", closeAgencyModal);
+
 // Mobile Action Buttons
 document.getElementById("mobileMimin").addEventListener("click", () => { miminR2(); closeMobile(); });
 document.getElementById("mobileStreamKey").addEventListener("click", () => { requestStreamKey(); closeMobile(); });
@@ -2251,6 +2364,7 @@ document.getElementById("mobileLiveStream").addEventListener("click", () => { re
 document.getElementById("mobileRekber").addEventListener("click", () => { jasaRekber(); closeMobile(); });
 document.getElementById("mobileDaftar").addEventListener("click", () => { daftarAgency(); closeMobile(); });
 
+// Category Filter
 document.querySelectorAll(".cat-item").forEach(item => {
   item.addEventListener("click", function() {
     document.querySelectorAll(".cat-item").forEach(c => c.classList.remove("active"));
@@ -2260,6 +2374,7 @@ document.querySelectorAll(".cat-item").forEach(item => {
   });
 });
 
+// Search Input
 document.getElementById("searchInput").addEventListener("input", (e) => {
   currentSearch = e.target.value;
   resetAndSearch();
